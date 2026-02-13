@@ -1,88 +1,62 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-13T22:41:51.341Z",
+  "generatedAt": "2026-02-13T22:55:56.193Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 5,
-    "implemented": 5,
+    "total": 3,
+    "implemented": 3,
     "items": [
       {
-        "id": "REQ-10",
-        "summary": "Update the footer (frontend/src/App.tsx) to remove the existing copyright/link sentence and replace it with: first line exactly \"2026 LookyLoo. A GeekDice dApp built with caffeine.ai\" and a second line below it (single line, centered) that shows: <GeekGoat-e8cRlk9m.png in a circle> then the text \"Follow me on\" then the X Logo Transparent.png icon.",
+        "id": "REQ-12",
+        "summary": "Update the header layout so the LookyLoo circular logo is positioned on the far left, and place the exact text \"Hey there, LookyLoo!  Wanna see somethin'?\" immediately to the right of the logo, while keeping the auth controls and (when authenticated) Upload button aligned on the right side of the header.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/App.tsx",
-          "frontend/public/assets/X Logo Transparent.png"
-        ],
-        "matchedFiles": [
-          "frontend/src/App.tsx"
-        ]
-      },
-      {
-        "id": "REQ-11",
-        "summary": "Install and wire up the provided favicon.ico so it appears in the browser tab for the app (update the HTML entry point to reference it).",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/index.html",
-          "frontend/public/favicon.ico"
-        ],
-        "matchedFiles": [
-          "frontend/index.html"
-        ]
-      },
-      {
-        "id": "REQ-7",
-        "summary": "Update the unauthenticated landing page (frontend/src/components/Landing.tsx) to replace the current camera icon + copy with a centered hero section that includes: (1) a large circular hero media element that plays the provided LookyLoo-gif.mp4, (2) title text exactly \"LookyLoo\", (3) subtitle text exactly \"A Li'l Media Share on ICP\", and (4) three uniform hero cards below the subtitle with the specified marketing copy.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/components/Landing.tsx",
-          "frontend/public/assets/LookyLoo-gif.mp4"
-        ],
-        "matchedFiles": [
-          "frontend/src/components/Landing.tsx"
-        ]
-      },
-      {
-        "id": "REQ-8",
-        "summary": "Update Card C in the Landing hero cards so that the provided GeekGoat-e8cRlk9m.png image is displayed in a circle, centered above the Card C text.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/components/Landing.tsx",
-          "frontend/public/assets/GeekGoat-e8cRlk9m.png"
-        ],
-        "matchedFiles": [
-          "frontend/src/components/Landing.tsx"
-        ]
-      },
-      {
-        "id": "REQ-9",
-        "summary": "Update the header (frontend/src/components/Header.tsx) to remove the currently referenced /assets/LookyLoo-Logo.png and replace it with the uploaded lookyloo-logo.png displayed in a circular frame, remaining centered in the header without layout shift.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/components/Header.tsx",
-          "frontend/public/assets/lookyloo-logo.png"
+          "frontend/src/components/Header.tsx"
         ],
         "matchedFiles": [
           "frontend/src/components/Header.tsx"
+        ]
+      },
+      {
+        "id": "REQ-13",
+        "summary": "On the unauthenticated landing page only, style the title text \"LookyLoo\" to be orange and use a calligraphy-style (or close) font; do not apply this orange/calligraphy styling to the header text.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/Landing.tsx",
+          "frontend/src/index.css"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/Landing.tsx",
+          "frontend/src/index.css"
+        ]
+      },
+      {
+        "id": "REQ-14",
+        "summary": "In the footer \"Follow me on\" row, make only the GeekGoat icon and the X icon clickable; set the X icon click target to navigate to https://x.com/WillGeek4Food. Do not make the entire row clickable.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/App.tsx"
         ]
       }
     ]
   },
   "changedFiles": [
     "build-request.json",
-    "build-template/README.md",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/index.html",
-    "frontend/public/assets/LookyLoo-Logo.png",
     "frontend/src/App.tsx",
     "frontend/src/components/Header.tsx",
     "frontend/src/components/Landing.tsx",
+    "frontend/src/index.css",
+    "frontend/tailwind.config.js",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

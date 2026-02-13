@@ -2,46 +2,8 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-update-the-unauthenticated-landing-page-frontend-src-components-landing-tsx-to-replace-the-current-camera-icon-copy-with-a-centered-hero-section-that-includes-1-a-large-circular-hero-media-element-that-plays-the-provided-lookyloo-gif-mp4-2-title-text-exactly-lookyloo-3-subtitle-text-exactly-a-li-l-media-share-on-icp-and-4-three-uniform-hero-cards-below-the-subtitle-with-the-specified-marketing-copy",
-      "featureTitle": "Update the unauthenticated landing page (frontend/src/components/Landing.tsx) to replace the current camera icon + copy with a centered hero section that includes: (1) a large circular hero media element that plays the provided LookyLoo-gif.mp4, (2) title text exactly \"LookyLoo\", (3) subtitle text exactly \"A Li'l Media Share on ICP\", and (4) three uniform hero cards below the subtitle with the specified marketing copy.",
-      "files": [
-        "frontend/src/components/Landing.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-7"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-update-card-c-in-the-landing-hero-cards-so-that-the-provided-geekgoat-e8crlk9m-png-image-is-displayed-in-a-circle-centered-above-the-card-c-text",
-      "featureTitle": "Update Card C in the Landing hero cards so that the provided GeekGoat-e8cRlk9m.png image is displayed in a circle, centered above the Card C text.",
-      "files": [
-        "frontend/src/components/Landing.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-8"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-update-the-header-frontend-src-components-header-tsx-to-remove-the-currently-referenced-assets-lookyloo-logo-png-and-replace-it-with-the-uploaded-lookyloo-logo-png-displayed-in-a-circular-frame-remaining-centered-in-the-header-without-layout-shift",
-      "featureTitle": "Update the header (frontend/src/components/Header.tsx) to remove the currently referenced /assets/LookyLoo-Logo.png and replace it with the uploaded lookyloo-logo.png displayed in a circular frame, remaining centered in the header without layout shift.",
+      "featureId": "feature-update-the-header-layout-so-the-lookyloo-circular-logo-is-positioned-on-the-far-left-and-place-the-exact-text-hey-there-lookyloo-wanna-see-somethin-immediately-to-the-right-of-the-logo-while-keeping-the-auth-controls-and-when-authenticated-upload-button-aligned-on-the-right-side-of-the-header",
+      "featureTitle": "Update the header layout so the LookyLoo circular logo is positioned on the far left, and place the exact text \"Hey there, LookyLoo!  Wanna see somethin'?\" immediately to the right of the logo, while keeping the auth controls and (when authenticated) Upload button aligned on the right side of the header.",
       "files": [
         "frontend/src/components/Header.tsx"
       ],
@@ -54,13 +16,33 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-9"
+        "REQ-12"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-update-the-footer-frontend-src-app-tsx-to-remove-the-existing-copyright-link-sentence-and-replace-it-with-first-line-exactly-2026-lookyloo-a-geekdice-dapp-built-with-caffeine-ai-and-a-second-line-below-it-single-line-centered-that-shows-geekgoat-e8crlk9m-png-in-a-circle-then-the-text-follow-me-on-then-the-x-logo-transparent-png-icon",
-      "featureTitle": "Update the footer (frontend/src/App.tsx) to remove the existing copyright/link sentence and replace it with: first line exactly \"2026 LookyLoo. A GeekDice dApp built with caffeine.ai\" and a second line below it (single line, centered) that shows: <GeekGoat-e8cRlk9m.png in a circle> then the text \"Follow me on\" then the X Logo Transparent.png icon.",
+      "featureId": "feature-on-the-unauthenticated-landing-page-only-style-the-title-text-lookyloo-to-be-orange-and-use-a-calligraphy-style-or-close-font-do-not-apply-this-orange-calligraphy-styling-to-the-header-text",
+      "featureTitle": "On the unauthenticated landing page only, style the title text \"LookyLoo\" to be orange and use a calligraphy-style (or close) font; do not apply this orange/calligraphy styling to the header text.",
+      "files": [
+        "frontend/src/components/Landing.tsx",
+        "frontend/src/index.css"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-13"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-in-the-footer-follow-me-on-row-make-only-the-geekgoat-icon-and-the-x-icon-clickable-set-the-x-icon-click-target-to-navigate-to-https-x-com-willgeek4food-do-not-make-the-entire-row-clickable",
+      "featureTitle": "In the footer \"Follow me on\" row, make only the GeekGoat icon and the X icon clickable; set the X icon click target to navigate to https://x.com/WillGeek4Food. Do not make the entire row clickable.",
       "files": [
         "frontend/src/App.tsx"
       ],
@@ -73,26 +55,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-10"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-install-and-wire-up-the-provided-favicon-ico-so-it-appears-in-the-browser-tab-for-the-app-update-the-html-entry-point-to-reference-it",
-      "featureTitle": "Install and wire up the provided favicon.ico so it appears in the browser tab for the app (update the HTML entry point to reference it).",
-      "files": [
-        "frontend/index.html"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-11"
+        "REQ-14"
       ],
       "confidence": "high"
     }

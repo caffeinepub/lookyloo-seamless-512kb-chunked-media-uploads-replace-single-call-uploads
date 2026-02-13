@@ -11,7 +11,7 @@ export default function Landing() {
                     className="h-full w-full object-cover"
                 />
             </div>
-            <h1 className="mb-2 text-5xl font-bold tracking-tight">LookyLoo</h1>
+            <h1 className="landing-title mb-2 text-5xl font-bold tracking-tight">LookyLoo</h1>
             <p className="mb-12 text-xl text-muted-foreground">A Li'l Media Share on ICP</p>
 
             <div className="grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-3">

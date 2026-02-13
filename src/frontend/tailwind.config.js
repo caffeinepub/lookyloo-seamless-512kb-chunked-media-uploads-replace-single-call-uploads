@@ -55,7 +55,8 @@ export default {
                     3: 'oklch(var(--chart-3))',
                     4: 'oklch(var(--chart-4))',
                     5: 'oklch(var(--chart-5))'
-                }
+                },
+                'lookyloo-orange': 'oklch(var(--lookyloo-orange))'
             },
             borderRadius: {
                 lg: 'var(--radius)',
@@ -71,6 +72,12 @@ export default {
                     'Segoe UI',
                     'Roboto',
                     'sans-serif'
+                ],
+                script: [
+                    'Brush Script MT',
+                    'Lucida Handwriting',
+                    'Apple Chancery',
+                    'cursive'
                 ]
             },
             boxShadow: {

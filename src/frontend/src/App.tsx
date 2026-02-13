@@ -88,17 +88,31 @@ export default function App() {
                 <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
                     <p className="mb-3">2026 LookyLoo. A GeekDice dApp built with caffeine.ai</p>
                     <div className="flex items-center justify-center gap-2">
-                        <img
-                            src="/assets/GeekGoat-e8cRlk9m.png"
-                            alt="GeekGoat"
-                            className="h-6 w-6 rounded-full object-cover"
-                        />
+                        <a
+                            href="https://geekdice.com"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="transition-opacity hover:opacity-80"
+                        >
+                            <img
+                                src="/assets/GeekGoat-e8cRlk9m.png"
+                                alt="GeekGoat"
+                                className="h-6 w-6 rounded-full object-cover"
+                            />
+                        </a>
                         <span>Follow me on</span>
-                        <img
-                            src="/assets/X Logo Transparent.png"
-                            alt="X"
-                            className="h-5 w-5 object-contain"
-                        />
+                        <a
+                            href="https://x.com/WillGeek4Food"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="transition-opacity hover:opacity-80"
+                        >
+                            <img
+                                src="/assets/X Logo Transparent.png"
+                                alt="X"
+                                className="h-5 w-5 object-contain"
+                            />
+                        </a>
                     </div>
                 </div>
             </footer>

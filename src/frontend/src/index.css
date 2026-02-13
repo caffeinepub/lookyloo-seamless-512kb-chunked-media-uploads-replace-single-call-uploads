@@ -29,6 +29,7 @@
         --chart-3: 0.7 0.12 70;
         --chart-4: 0.55 0.2 20;
         --chart-5: 0.5 0.22 10;
+        --lookyloo-orange: 0.65 0.18 40;
     }
 
     .dark {
@@ -56,6 +57,7 @@
         --chart-3: 0.7 0.12 70;
         --chart-4: 0.55 0.2 20;
         --chart-5: 0.5 0.22 10;
+        --lookyloo-orange: 0.7 0.2 45;
     }
 
     * {
@@ -63,5 +65,10 @@
     }
     body {
         @apply bg-background text-foreground;
+    }
+
+    .landing-title {
+        color: oklch(var(--lookyloo-orange));
+        font-family: 'Brush Script MT', 'Lucida Handwriting', 'Apple Chancery', cursive;
     }
 }

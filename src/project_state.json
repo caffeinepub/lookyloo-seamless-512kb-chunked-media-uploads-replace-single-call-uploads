@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 5,
+  "projectStateVersion": 7,
   "summary": "Media-sharing app on ICP (Motoko canister + React/Tailwind/React Query) with authentication/roles, user profiles, posts with media, feed + viewer UI, and a new requirement to use seamless chunked uploads (512KB chunks) instead of single-call media uploads due to update-call size limits.",
   "architectural_notes": [
     "Chunked uploads must fully replace single-call media upload (no single-call createPost with full media Blob).",
@@ -89,6 +89,30 @@
         "REQ-11"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-update-the-header-layout-so-the-lookyloo-circular-logo-is-positioned-on-the-far-left-and-place-the-exact-text-hey-there-lookyloo-wanna-see-somethin-immediately-to-the-right-of-the-logo-while-keeping-the-auth-controls-and-when-authenticated-upload-button-aligned-on-the-right-side-of-the-header",
+      "title": "Update the header layout so the LookyLoo circular logo is positioned on the far left, and place the exact text \"Hey there, LookyLoo!  Wanna see somethin'?\" immediately to the right of the logo, while keeping the auth controls and (when authenticated) Upload button aligned on the right side of the header.",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-on-the-unauthenticated-landing-page-only-style-the-title-text-lookyloo-to-be-orange-and-use-a-calligraphy-style-or-close-font-do-not-apply-this-orange-calligraphy-styling-to-the-header-text",
+      "title": "On the unauthenticated landing page only, style the title text \"LookyLoo\" to be orange and use a calligraphy-style (or close) font; do not apply this orange/calligraphy styling to the header text.",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-the-footer-follow-me-on-row-make-only-the-geekgoat-icon-and-the-x-icon-clickable-set-the-x-icon-click-target-to-navigate-to-https-x-com-willgeek4food-do-not-make-the-entire-row-clickable",
+      "title": "In the footer \"Follow me on\" row, make only the GeekGoat icon and the X icon clickable; set the X icon click target to navigate to https://x.com/WillGeek4Food. Do not make the entire row clickable.",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -115,6 +139,24 @@
     {
       "id": "AR-5",
       "summary": "Update header/footer branding assets: replace existing header logo with lookyloo-logo.png in a circle, install favicon.ico for the browser tab, and replace footer text with '2026 LookyLoo. A GeekDice dApp built with caffeine.ai' plus a centered single-line second row: '<GeekGoat.png in a circle> Follow me on <X Logo Transparent.png>'.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Header update: move the LookyLoo logo to the far left and place the text \"Hey there, LookyLoo!  Wanna see somethin'?\" to the right of it (replace the centered-header layout accordingly).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Landing page title styling: change the landing-page title text \"LookyLoo\" to orange and use a calligraphy-style (or close) font; do not apply this styling to the header text.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Footer links: make only the GeekGoat icon and the X logo icon clickable; set the X icon link target to https://x.com/WillGeek4Food (do not make the whole row clickable).",
       "reqIds": [],
       "status": "pending"
     }

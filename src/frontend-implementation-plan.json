@@ -1,112 +1,59 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Branding & landing page cosmetic refresh (hero video, header/footer, cards, favicon)",
+  "title": "Header alignment, landing title styling, and footer social icon links",
   "requirements": [
     {
-      "id": "REQ-7",
-      "summary": "Refresh logged-out Landing page with centered circular hero video, exact title/subtitle, and three uniform marketing cards.",
+      "id": "REQ-12",
+      "summary": "Re-layout the header so the circular LookyLoo logo sits on the far left with the specified greeting text to its right, while keeping auth controls and Upload on the far right.",
       "acceptanceCriteria": [
-        "When logged out, the Landing page shows a large circular hero element that renders the LookyLoo-gif.mp4 media centered above the title.",
-        "The Landing title reads exactly \"LookyLoo\" and the subtitle reads exactly \"A Li'l Media Share on ICP\".",
-        "Three cards render below the subtitle and maintain equal widths/heights at the same breakpoint (uniform presentation).",
-        "Card A text reads exactly: \"Share your media with the world. Uses ICP ID2 for login, no personal information needed. Ever.\"",
-        "Card B text reads exactly: \"Easy to Use. Easy to Share. Blockchain encryptied and owned only by you. You decide who sees it.\"",
-        "Card C text reads exactly: \"Built, designed and deployed by GeekDice - A Non-Dev. Try it yourself at caffeine.ai.\""
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/Landing.tsx",
-          "operation": "modify",
-          "description": "Replace the current camera icon + copy with a centered hero layout: a large circular video element playing LookyLoo-gif.mp4, title text exactly \"LookyLoo\", subtitle text exactly \"A Li'l Media Share on ICP\", and a 3-card row/grid below with the exact marketing copy; ensure cards are visually uniform at the same breakpoint."
-        },
-        {
-          "path": "frontend/public/assets/LookyLoo-gif.mp4",
-          "operation": "create",
-          "description": "Add the provided LookyLoo-gif.mp4 as a static public asset for the Landing hero media element."
-        }
-      ]
-    },
-    {
-      "id": "REQ-8",
-      "summary": "Add GeekGoat image in Card C as a centered circular image above the Card C text.",
-      "acceptanceCriteria": [
-        "Card C shows the GeekGoat-e8cRlk9m.png image clipped to a circle.",
-        "The GeekGoat image is horizontally centered and positioned above the Card C text content."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/Landing.tsx",
-          "operation": "modify",
-          "description": "Update Card C rendering to include the GeekGoat-e8cRlk9m.png image clipped/masked to a circle and centered above the Card C text while preserving the exact copy."
-        },
-        {
-          "path": "frontend/public/assets/GeekGoat-e8cRlk9m.png",
-          "operation": "create",
-          "description": "Add the provided GeekGoat-e8cRlk9m.png as a static public asset used by the Landing page Card C."
-        }
-      ]
-    },
-    {
-      "id": "REQ-9",
-      "summary": "Update Header centered logo to use lookyloo-logo.png in a circular frame, removing the old asset reference and preventing layout shift.",
-      "acceptanceCriteria": [
-        "Header no longer references /assets/LookyLoo-Logo.png.",
-        "Header renders lookyloo-logo.png as the centered logo.",
-        "Logo is displayed inside a circle (clipped/masked) and remains crisp/responsive across common breakpoints."
+        "In the header, the logo appears at the far left of the header row (no longer centered).",
+        "The header displays the exact sentence \"Hey there, LookyLoo!  Wanna see somethin'?\" to the right of the logo (including the double space between the sentences).",
+        "The Login/Logout control remains on the right side; when authenticated, the Upload button also remains on the right side.",
+        "No layout shift occurs for the logo sizing compared to the current circular logo presentation."
       ],
       "file_operations": [
         {
           "path": "frontend/src/components/Header.tsx",
           "operation": "modify",
-          "description": "Replace the current /assets/LookyLoo-Logo.png usage with lookyloo-logo.png displayed in a circular frame; keep the logo centered and size-constrained to avoid layout shift across breakpoints."
-        },
-        {
-          "path": "frontend/public/assets/lookyloo-logo.png",
-          "operation": "create",
-          "description": "Add the provided lookyloo-logo.png as a static public asset for the Header logo."
+          "description": "Adjust the header flex layout to use a left-aligned group (existing circular /assets/lookyloo-logo.png + greeting text immediately to its right) and a right-aligned group for Upload (when authenticated) and Login/Logout. Preserve the current logo container sizing and circular framing. Ensure the rendered greeting preserves the required double space between sentences (e.g., via non-breaking spaces) while matching the exact text. Verify the component's usage instructions before implementing."
         }
       ]
     },
     {
-      "id": "REQ-10",
-      "summary": "Replace footer copy with two centered rows including GeekGoat circle image and X icon on the second line.",
+      "id": "REQ-13",
+      "summary": "Style the unauthenticated landing page H1 \"LookyLoo\" in orange with a calligraphy-style font, without affecting header text.",
       "acceptanceCriteria": [
-        "Footer displays exactly two rows of content.",
-        "Row 1 text matches exactly: \"2026 LookyLoo. A GeekDice dApp built with caffeine.ai\".",
-        "Row 2 is a single centered line containing (in order): circular GeekGoat-e8cRlk9m.png, the text \"Follow me on\", and the X Logo Transparent.png icon.",
-        "Footer no longer includes the previous dynamic year or the previous caffeine.ai UTM link block."
+        "The landing page H1 title \"LookyLoo\" renders in orange.",
+        "The landing page H1 title uses a calligraphy-style (or close) font distinct from the default sans font.",
+        "Header text does not inherit this orange/calligraphy styling."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/Landing.tsx",
+          "operation": "modify",
+          "description": "Update only the landing page H1 to apply an orange color and a calligraphy-style font via a dedicated class/utility so the styling remains scoped to the landing title and does not impact the Header component. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Add a small, scoped utility/class for the landing H1 calligraphy-style font stack (e.g., common script/cursive fallbacks) to ensure a distinct calligraphy-like appearance without changing global typography. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-14",
+      "summary": "Make only the GeekGoat and X icons in the footer clickable, and set the X icon to link to the provided X profile URL, without making the full row clickable.",
+      "acceptanceCriteria": [
+        "Clicking the X icon navigates to https://x.com/WillGeek4Food.",
+        "The GeekGoat icon is independently clickable (focusable/clickable element) without making the surrounding footer row clickable.",
+        "Clicking non-icon text/areas in the footer row (e.g., \"Follow me on\") does not navigate anywhere."
       ],
       "file_operations": [
         {
           "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Update the footer to remove the dynamic year and UTM link block; render exactly two centered rows: row 1 exact text \"2026 LookyLoo. A GeekDice dApp built with caffeine.ai\"; row 2 as a single centered line with (in order) circular GeekGoat-e8cRlk9m.png, text \"Follow me on\", and the X Logo Transparent.png icon."
-        },
-        {
-          "path": "frontend/public/assets/X Logo Transparent.png",
-          "operation": "create",
-          "description": "Add the provided X Logo Transparent.png as a static public asset used in the footer second row."
-        }
-      ]
-    },
-    {
-      "id": "REQ-11",
-      "summary": "Install and reference favicon.ico so it appears in the browser tab.",
-      "acceptanceCriteria": [
-        "The built app includes a favicon.ico at the expected public path.",
-        "The HTML entry point references the favicon.ico so the browser tab shows the favicon."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/index.html",
-          "operation": "modify",
-          "description": "Update the HTML entry point head to reference the favicon.ico (e.g., via a standard rel=\"icon\" link) so browsers show it in the tab."
-        },
-        {
-          "path": "frontend/public/favicon.ico",
-          "operation": "create",
-          "description": "Add the provided favicon.ico to the public folder so it is served at the expected path."
+          "description": "Refactor the footer \"Follow me on\" row so each icon is its own accessible clickable element (e.g., separate <a> elements wrapping only each <img>). Set the X icon link target to https://x.com/WillGeek4Food and keep the \"Follow me on\" text as non-clickable content; ensure no click handler or link wraps the entire row. Verify the component's usage instructions before implementing."
         }
       ]
     }

@@ -35,19 +35,20 @@ export default function Header({ isAuthenticated, onUploadClick }: HeaderProps) 
         <header className="border-b border-border bg-card">
             <div className="container mx-auto px-4 py-6">
                 <div className="flex items-center justify-between">
-                    <div className="flex-1" />
-
-                    <div className="flex items-center justify-center">
-                        <div className="flex h-16 w-16 items-center justify-center overflow-hidden rounded-full bg-background">
+                    <div className="flex items-center gap-4">
+                        <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center overflow-hidden rounded-full bg-background">
                             <img
                                 src="/assets/lookyloo-logo.png"
                                 alt="LookyLoo"
                                 className="h-full w-full object-cover"
                             />
                         </div>
+                        <span className="text-lg font-medium">
+                            Hey there, LookyLoo!{'\u00A0\u00A0'}Wanna see somethin'?
+                        </span>
                     </div>
 
-                    <div className="flex flex-1 items-center justify-end gap-3">
+                    <div className="flex items-center gap-3">
                         {isAuthenticated && (
                             <Button onClick={onUploadClick} size="default" className="gap-2">
                                 <Upload className="h-4 w-4" />

@@ -1,13 +1,11 @@
 # Specification
 
 ## Summary
-**Goal:** Refresh logged-out landing page branding and layout with a hero video, updated header/footer visuals, and a wired favicon.
+**Goal:** Adjust the header layout, landing-page title styling, and footer social icon link behavior.
 
 **Planned changes:**
-- Update `frontend/src/components/Landing.tsx` to replace the current camera icon/copy with a centered hero section containing: a large circular video element playing `LookyLoo-gif.mp4`, the title text `LookyLoo`, the subtitle text `A Li'l Media Share on ICP`, and three uniform hero cards with the provided exact marketing copy.
-- Update the Landing Card C to display `GeekGoat-e8cRlk9m.png` in a circle, centered above the Card C text.
-- Update `frontend/src/components/Header.tsx` to remove references to `/assets/LookyLoo-Logo.png` and render `lookyloo-logo.png` centered in the header in a circular frame without layout shift.
-- Update the footer in `frontend/src/App.tsx` to replace the existing content with two centered rows: (1) `2026 LookyLoo. A GeekDice dApp built with caffeine.ai` and (2) a single line containing (in order) circular `GeekGoat-e8cRlk9m.png`, the text `Follow me on`, and the `X Logo Transparent.png` icon.
-- Install and reference the provided `favicon.ico` in the HTML entry point so it appears in the browser tab.
+- Update the header so the circular LookyLoo logo is aligned to the far left, with the exact text "Hey there, LookyLoo!  Wanna see somethin'?" immediately to its right, while keeping auth controls (and Upload when authenticated) aligned on the right.
+- On the unauthenticated landing page only, style the H1 title text "LookyLoo" to be orange and use a calligraphy-style (or similar) font, without affecting header text styling.
+- Update the footer "Follow me on" row so only the GeekGoat icon and the X icon are clickable, and set the X icon link target to https://x.com/WillGeek4Food (without making the full row clickable).
 
-**User-visible outcome:** When logged out, users see a refreshed landing page with a circular hero video, updated title/subtitle, three consistent marketing cards (including a GeekGoat badge on Card C), an updated centered circular header logo, a two-line footer with GeekGoat + X icon, and the app favicon visible in the browser tab.
+**User-visible outcome:** Users see a left-aligned logo with the specified greeting in the header, an orange calligraphy-style "LookyLoo" title on the unauthenticated landing page, and footer social links that work only when clicking the GeekGoat or X icons (with X linking to the provided URL).

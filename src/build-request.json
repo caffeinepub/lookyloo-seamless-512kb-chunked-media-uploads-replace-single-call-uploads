@@ -1,119 +1,92 @@
 {
   "kind": "build_request",
-  "title": "Branding & landing page cosmetic refresh (hero video, header/footer, cards, favicon)",
+  "title": "Update header layout, landing title styling, and footer social links",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-7",
-      "text": "Update the unauthenticated landing page (frontend/src/components/Landing.tsx) to replace the current camera icon + copy with a centered hero section that includes: (1) a large circular hero media element that plays the provided LookyLoo-gif.mp4, (2) title text exactly \"LookyLoo\", (3) subtitle text exactly \"A Li'l Media Share on ICP\", and (4) three uniform hero cards below the subtitle with the specified marketing copy.",
+      "id": "REQ-12",
+      "text": "Update the header layout so the LookyLoo circular logo is positioned on the far left, and place the exact text \"Hey there, LookyLoo!  Wanna see somethin'?\" immediately to the right of the logo, while keeping the auth controls and (when authenticated) Upload button aligned on the right side of the header.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-6"
+          "msg-4",
+          "msg-5"
         ],
         "quotes": [
-          "1. attached is the logo. make it the center page, kinda big, and put it in a circle. attached LookyLoo-gif.mp4",
-          "2. change \"Welcome to LookyLoo\" to just \"LookyLoo\". Under that text, \"A Li'l Media Share on ICP\"",
-          "6. Add hero cards on the main page below the logo and LookyLoo taglines. 3 uniform cards. card A: Share your media with the world. Uses ICP ID2 for login, no personal information needed. Ever. Card B: Easy to Use. Easy to Share. Blockchain encryptied and owned only by you. You decide who sees it. Card C: Built, designed and deployed by GeekDice - A Non-Dev. Try it yourself at caffeine.ai.",
-          "1. no. the logo is there. it's called: LookyLoo-gif.mp4"
+          "far left with text to the right of it.",
+          "Header:  That log is correct but move it to the far left and add, \"Hey there, LookyLoo!  Wanna see somethin'?\""
         ]
       },
       "acceptanceCriteria": [
-        "When logged out, the Landing page shows a large circular hero element that renders the LookyLoo-gif.mp4 media centered above the title.",
-        "The Landing title reads exactly \"LookyLoo\" and the subtitle reads exactly \"A Li'l Media Share on ICP\".",
-        "Three cards render below the subtitle and maintain equal widths/heights at the same breakpoint (uniform presentation).",
-        "Card A text reads exactly: \"Share your media with the world. Uses ICP ID2 for login, no personal information needed. Ever.\"",
-        "Card B text reads exactly: \"Easy to Use. Easy to Share. Blockchain encryptied and owned only by you. You decide who sees it.\"",
-        "Card C text reads exactly: \"Built, designed and deployed by GeekDice - A Non-Dev. Try it yourself at caffeine.ai.\""
+        "In the header, the logo appears at the far left of the header row (no longer centered).",
+        "The header displays the exact sentence \"Hey there, LookyLoo!  Wanna see somethin'?\" to the right of the logo (including the double space between the sentences).",
+        "The Login/Logout control remains on the right side; when authenticated, the Upload button also remains on the right side.",
+        "No layout shift occurs for the logo sizing compared to the current circular logo presentation."
       ]
     },
     {
-      "id": "REQ-8",
-      "text": "Update Card C in the Landing hero cards so that the provided GeekGoat-e8cRlk9m.png image is displayed in a circle, centered above the Card C text.",
+      "id": "REQ-13",
+      "text": "On the unauthenticated landing page only, style the title text \"LookyLoo\" to be orange and use a calligraphy-style (or close) font; do not apply this orange/calligraphy styling to the header text.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-6"
+          "msg-4",
+          "msg-5"
         ],
         "quotes": [
-          "7. In card C put my personal logo GeekGoat.png attached in a circle with the text.",
-          "3. Centered above"
+          "Make the words, \"LookyLoo\" orange and caligraphy-type font or close to that type of font.",
+          "Not the header.  Only the title ."
         ]
       },
       "acceptanceCriteria": [
-        "Card C shows the GeekGoat-e8cRlk9m.png image clipped to a circle.",
-        "The GeekGoat image is horizontally centered and positioned above the Card C text content."
+        "The landing page H1 title \"LookyLoo\" renders in orange.",
+        "The landing page H1 title uses a calligraphy-style (or close) font distinct from the default sans font.",
+        "Header text does not inherit this orange/calligraphy styling."
       ]
     },
     {
-      "id": "REQ-9",
-      "text": "Update the header (frontend/src/components/Header.tsx) to remove the currently referenced /assets/LookyLoo-Logo.png and replace it with the uploaded lookyloo-logo.png displayed in a circular frame, remaining centered in the header without layout shift.",
+      "id": "REQ-14",
+      "text": "In the footer \"Follow me on\" row, make only the GeekGoat icon and the X icon clickable; set the X icon click target to navigate to https://x.com/WillGeek4Food. Do not make the entire row clickable.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-6"
+          "msg-4",
+          "msg-5"
         ],
         "quotes": [
-          "3. Header: Remove the logo thats there and replace with attached lookyloo-logo.png. also put it in a circle"
+          "In the footer where we have 'follow on X\" make the X logo navigate to: https://x.com/WillGeek4Food",
+          "Just the X and GeekGoat icons should be clickable."
         ]
       },
       "acceptanceCriteria": [
-        "Header no longer references /assets/LookyLoo-Logo.png.",
-        "Header renders lookyloo-logo.png as the centered logo.",
-        "Logo is displayed inside a circle (clipped/masked) and remains crisp/responsive across common breakpoints."
-      ]
-    },
-    {
-      "id": "REQ-10",
-      "text": "Update the footer (frontend/src/App.tsx) to remove the existing copyright/link sentence and replace it with: first line exactly \"2026 LookyLoo. A GeekDice dApp built with caffeine.ai\" and a second line below it (single line, centered) that shows: <GeekGoat-e8cRlk9m.png in a circle> then the text \"Follow me on\" then the X Logo Transparent.png icon.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-6"
-        ],
-        "quotes": [
-          "5. Footer. Delete the text and replace with \"2026 LookyLoo. A GeekDice dApp built with caffeine.ai\"",
-          "8. Footer: on a single line under \"2026 LookyLoo..\" create, \"<GeekGoat.png in a circle>Follow me on <X Logo Transparent.png>\"",
-          "2. exactly. centered and all one line."
-        ]
-      },
-      "acceptanceCriteria": [
-        "Footer displays exactly two rows of content.",
-        "Row 1 text matches exactly: \"2026 LookyLoo. A GeekDice dApp built with caffeine.ai\".",
-        "Row 2 is a single centered line containing (in order): circular GeekGoat-e8cRlk9m.png, the text \"Follow me on\", and the X Logo Transparent.png icon.",
-        "Footer no longer includes the previous dynamic year or the previous caffeine.ai UTM link block."
-      ]
-    },
-    {
-      "id": "REQ-11",
-      "text": "Install and wire up the provided favicon.ico so it appears in the browser tab for the app (update the HTML entry point to reference it).",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-6"
-        ],
-        "quotes": [
-          "4. Install favicon.ico (attached) for the browser tab"
-        ]
-      },
-      "acceptanceCriteria": [
-        "The built app includes a favicon.ico at the expected public path.",
-        "The HTML entry point references the favicon.ico so the browser tab shows the favicon."
+        "Clicking the X icon navigates to https://x.com/WillGeek4Food.",
+        "The GeekGoat icon is independently clickable (focusable/clickable element) without making the surrounding footer row clickable.",
+        "Clicking non-icon text/areas in the footer row (e.g., \"Follow me on\") does not navigate anywhere."
       ]
     }
   ],
   "constraints": [
-    "Do not modify any files under frontend/src/components/ui (compose them instead).",
-    "Do not edit immutable hook files: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx.",
-    "Keep backend behavior unchanged; these are cosmetic/branding updates only."
+    "Frontend immutable paths must not be edited: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui.",
+    "Keep the existing LookyLoo logo asset usage (/assets/lookyloo-logo.png) and circular framing; only reposition within the header layout.",
+    "Use English for all user-facing text."
   ],
   "nonGoals": [
-    "Changing Internet Identity behavior or introducing multiple distinct account profiles beyond Internet Identity anchors.",
-    "Changing the chunked upload protocol, post APIs, pagination, or authorization logic.",
-    "Adding third-party auth providers or social API integrations for X beyond displaying the provided X icon."
+    "No changes to backend Motoko canister logic or data models.",
+    "No changes to the chunked upload protocol or feed/viewer behavior beyond layout/styling impacts required by the header/footer updates.",
+    "Do not make the entire footer \"Follow me on\" row a single clickable link."
   ],
   "imageRequirements": {
     "required": [],
     "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
   }
 }
