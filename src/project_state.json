@@ -1,0 +1,73 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "Media-sharing app on ICP (Motoko canister + React/Tailwind/React Query) with authentication/roles, user profiles, posts with media, feed + viewer UI, and a new requirement to use seamless chunked uploads (512KB chunks) instead of single-call media uploads due to update-call size limits.",
+  "architectural_notes": [
+    "Chunked uploads must fully replace single-call media upload (no single-call createPost with full media Blob).",
+    "Frontend slices files into 512KB chunks and uploads across multiple update calls.",
+    "Upload flow must appear as a single-file upload to the user; chunking/finalization is invisible in UI."
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "existing_features": [
+    {
+      "id": "feature-replace-the-single-call-media-upload-api-with-a-seamless-chunked-upload-protocol-that-splits-files-into-512-kb-chunks-on-the-frontend-uploads-them-across-multiple-update-calls-stores-chunks-temporarily-in-the-motoko-canister-and-finalizes-into-a-single-stored-post-that-behaves-like-a-normal-single-file-post-everywhere-else-in-the-app",
+      "title": "Replace the single-call media upload API with a seamless chunked upload protocol that splits files into 512 KB chunks on the frontend, uploads them across multiple update calls, stores chunks temporarily in the Motoko canister, and finalizes into a single stored post that behaves like a normal single-file post everywhere else in the app.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-frontend-upload-flow-uploadbutton-uploadcomposer-to-perform-chunked-uploads-end-to-end-with-progress-reporting-and-robust-error-handling-retry-a-failed-chunk-upload-allow-cancel-while-keeping-the-rest-of-the-app-api-usage-feed-viewer-unchanged",
+      "title": "Update the frontend upload flow (UploadButton → UploadComposer) to perform chunked uploads end-to-end with progress reporting and robust error handling (retry a failed chunk upload; allow cancel), while keeping the rest of the app API usage (feed, viewer) unchanged.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-posts-apis-support-efficient-feed-pagination-by-returning-post-summaries-for-lists-and-fetching-full-media-only-for-a-specific-post-id-while-maintaining-share-and-delete-behaviors-for-finalized-posts",
+      "title": "Ensure posts APIs support efficient feed pagination by returning post summaries for lists and fetching full media only for a specific post ID, while maintaining share and delete behaviors for finalized posts.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-coherent-distinct-visual-theme-across-the-spa-colors-typography-spacing-and-component-styling-and-apply-it-consistently-to-the-landing-header-feed-upload-composer-and-post-viewer-screens",
+      "title": "Add a coherent, distinct visual theme across the SPA (colors, typography, spacing, and component styling) and apply it consistently to the landing, header, feed, upload composer, and post viewer screens.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-use-the-uploaded-lookyloo-logo-png-as-the-app-logo-in-the-header-top-centered-ensuring-it-renders-crisply-and-responsively-without-layout-shift",
+      "title": "Use the uploaded LookyLoo-Logo.png as the app logo in the header (top-centered), ensuring it renders crisply and responsively without layout shift.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Implement seamless chunked media uploads (512KB slices) that replace single-call createPost media upload; backend stores chunks and assembles final media transparently to the user.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Implement backend chunk-upload state management and validation in the single Motoko main actor: enforce authorization/roles, validate chunk ordering/indices, track received chunks, enforce size limits per chunk, and ensure uploads can be resumed or safely rejected when inconsistent.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "status": "pending"
+    }
+  ],
+  "projectName": "LookyLoo: Seamless 512KB Chunked Media Uploads (replace single-call uploads)",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

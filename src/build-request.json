@@ -1,0 +1,168 @@
+{
+  "kind": "build_request",
+  "title": "LookyLoo: Seamless 512KB Chunked Media Uploads (replace single-call uploads)",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Replace the single-call media upload API with a seamless chunked upload protocol that splits files into 512 KB chunks on the frontend, uploads them across multiple update calls, stores chunks temporarily in the Motoko canister, and finalizes into a single stored post that behaves like a normal single-file post everywhere else in the app.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2",
+          "msg-3",
+          "msg-4",
+          "msg-5"
+        ],
+        "quotes": [
+          "“Build a media-sharing app that supports full chunked uploads. Files must be sliced into small pieces on the frontend, uploaded across multiple update calls, stored as chunks in the backend, and reassembled into the final media file. Do not use single-call uploads.”",
+          "1 replace",
+          "2. 512KB",
+          "It should be invisible to the user.  To the user it needs to look like a single file but code it in a way that is most efficient and breaks into smaller chunks"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Frontend slices selected media into fixed 512 KB chunks (last chunk may be smaller).",
+        "Backend exposes an upload lifecycle that supports: starting an upload, uploading chunk N, finalizing the upload into a post, and aborting/cleanup.",
+        "The UI presents the upload as a single action (one composer flow) with progress, without exposing chunk details to the user.",
+        "The old single-call upload that sends the entire media Blob in one update call is removed/unused by the UI.",
+        "Finalized posts are stored as a single media Blob and served by existing post-viewing flows (viewer can render images/videos from one assembled Blob)."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Implement backend chunk-upload state management and validation in the single Motoko main actor: enforce authorization/roles, validate chunk ordering/indices, track received chunks, enforce size limits per chunk, and ensure uploads can be resumed or safely rejected when inconsistent.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-1",
+          "msg-2",
+          "msg-3",
+          "msg-4"
+        ],
+        "quotes": [
+          "Authentication roles",
+          "Users must have the “user” role to create posts or save profiles",
+          "IMPORTANT: mediaBlob must be < 2 MB due to update-call limits.",
+          "2. 512KB"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Only authenticated callers with the required role can start uploads, upload chunks, and finalize posts.",
+        "Backend rejects chunks that exceed the configured maximum chunk size (512 KB) or that have invalid indices/metadata.",
+        "Backend maintains temporary per-upload state keyed by an upload identifier and caller principal, preventing other principals from injecting chunks into someone else’s upload.",
+        "Backend supports aborting an upload and cleaning up temporary chunks/state.",
+        "Finalize only succeeds when all expected chunks are received; on success, temporary chunk state is removed."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Update the frontend upload flow (UploadButton → UploadComposer) to perform chunked uploads end-to-end with progress reporting and robust error handling (retry a failed chunk upload; allow cancel), while keeping the rest of the app API usage (feed, viewer) unchanged.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1",
+          "msg-2",
+          "msg-4"
+        ],
+        "quotes": [
+          "Upload Flow UploadButton → UploadComposer → calls backend createPost() directly",
+          "No chunking.",
+          "It should be invisible to the user.  To the user it needs to look like a single file but code it in a way that is most efficient and breaks into smaller chunks"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Upload composer shows a single progress indicator representing total uploaded bytes / total file size.",
+        "Chunk upload happens sequentially or with a controlled concurrency that does not overload update calls; failed chunks can be retried without restarting the whole upload.",
+        "User can cancel an in-progress upload; cancel triggers backend abort/cleanup.",
+        "On successful finalize, the new post appears in the feed without requiring a full page reload."
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Ensure posts APIs support efficient feed pagination by returning post summaries for lists and fetching full media only for a specific post ID, while maintaining share and delete behaviors for finalized posts.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "getPosts(start, count) → list of summaries",
+          "getPost(id) → full post including bytes",
+          "Allows sharing via a special URL with ?postId=",
+          "Allows deletion of uploaded media"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Feed requests only lightweight summaries (no media bytes) and paginates in pages of 9 posts.",
+        "Viewer fetches a single post by ID and renders media via an object URL built from the returned bytes and mime type.",
+        "Share URLs with ?postId= open the viewer for that post.",
+        "Delete removes the post and its stored media; deleted posts no longer appear in feed or viewer."
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Add a coherent, distinct visual theme across the SPA (colors, typography, spacing, and component styling) and apply it consistently to the landing, header, feed, upload composer, and post viewer screens.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-0"
+        ],
+        "quotes": [
+          "Please tell me what app to create, or ask me a question."
+        ]
+      },
+      "acceptanceCriteria": [
+        "App uses a consistent theme (not default browser styling), with a clear layout for header + main content.",
+        "Theme is applied consistently across authenticated and unauthenticated states.",
+        "No blue/purple-dominant palette is used unless explicitly required later."
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Use the uploaded LookyLoo-Logo.png as the app logo in the header (top-centered), ensuring it renders crisply and responsively without layout shift.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-6"
+        ],
+        "quotes": [
+          "The user has uploaded 1 image(s): LookyLoo-Logo.png."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Header displays LookyLoo-Logo.png centered at the top on all main views.",
+        "Logo scales appropriately for mobile and desktop and maintains aspect ratio.",
+        "Logo asset is served as a static frontend asset (not fetched from the backend)."
+      ]
+    }
+  ],
+  "constraints": [
+    "Use Motoko in a single-actor backend (all logic in the main actor).",
+    "Frontend must be React + TypeScript with Tailwind and React Query.",
+    "Do not edit files under frontend/src/components/ui or any frontend immutablePaths listed in SYSTEM_CONTEXT; compose them instead.",
+    "Chunk size must be 512 KB.",
+    "Chunked uploads must replace single-call uploads; do not implement single-call media uploads in the UI.",
+    "Do not route static assets (e.g., the logo) through the backend."
+  ],
+  "nonGoals": [
+    "Implementing third-party authentication providers (only Internet Identity).",
+    "Adding real-time features (WebSockets/chat/push).",
+    "Using external databases or cloud storage.",
+    "Adding chunked download/streaming; only upload is chunked while stored media is served as a single Blob per post."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
+  }
+}

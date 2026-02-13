@@ -1,0 +1,113 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-replace-the-single-call-media-upload-api-with-a-seamless-chunked-upload-protocol-that-splits-files-into-512-kb-chunks-on-the-frontend-uploads-them-across-multiple-update-calls-stores-chunks-temporarily-in-the-motoko-canister-and-finalizes-into-a-single-stored-post-that-behaves-like-a-normal-single-file-post-everywhere-else-in-the-app",
+      "featureTitle": "Replace the single-call media upload API with a seamless chunked upload protocol that splits files into 512 KB chunks on the frontend, uploads them across multiple update calls, stores chunks temporarily in the Motoko canister, and finalizes into a single stored post that behaves like a normal single-file post everywhere else in the app.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/upload/UploadButton.tsx",
+        "frontend/src/components/upload/UploadComposer.tsx",
+        "frontend/src/hooks/useChunkedUpload.ts",
+        "frontend/src/utils/chunking.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-the-frontend-upload-flow-uploadbutton-uploadcomposer-to-perform-chunked-uploads-end-to-end-with-progress-reporting-and-robust-error-handling-retry-a-failed-chunk-upload-allow-cancel-while-keeping-the-rest-of-the-app-api-usage-feed-viewer-unchanged",
+      "featureTitle": "Update the frontend upload flow (UploadButton → UploadComposer) to perform chunked uploads end-to-end with progress reporting and robust error handling (retry a failed chunk upload; allow cancel), while keeping the rest of the app API usage (feed, viewer) unchanged.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/upload/UploadComposer.tsx",
+        "frontend/src/hooks/useChunkedUpload.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-ensure-posts-apis-support-efficient-feed-pagination-by-returning-post-summaries-for-lists-and-fetching-full-media-only-for-a-specific-post-id-while-maintaining-share-and-delete-behaviors-for-finalized-posts",
+      "featureTitle": "Ensure posts APIs support efficient feed pagination by returning post summaries for lists and fetching full media only for a specific post ID, while maintaining share and delete behaviors for finalized posts.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/feed/Feed.tsx",
+        "frontend/src/components/viewer/PostViewer.tsx",
+        "frontend/src/utils/urlParams.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-coherent-distinct-visual-theme-across-the-spa-colors-typography-spacing-and-component-styling-and-apply-it-consistently-to-the-landing-header-feed-upload-composer-and-post-viewer-screens",
+      "featureTitle": "Add a coherent, distinct visual theme across the SPA (colors, typography, spacing, and component styling) and apply it consistently to the landing, header, feed, upload composer, and post viewer screens.",
+      "files": [
+        "frontend/index.css",
+        "frontend/src/App.tsx",
+        "frontend/src/main.tsx",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-use-the-uploaded-lookyloo-logo-png-as-the-app-logo-in-the-header-top-centered-ensuring-it-renders-crisply-and-responsively-without-layout-shift",
+      "featureTitle": "Use the uploaded LookyLoo-Logo.png as the app logo in the header (top-centered), ensuring it renders crisply and responsively without layout shift.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/Header.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

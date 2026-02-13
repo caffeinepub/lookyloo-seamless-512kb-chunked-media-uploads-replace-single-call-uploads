@@ -1,0 +1,170 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "LookyLoo Frontend: 512KB Chunked Upload UX + Themed SPA",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Replace the single-call media upload usage in the UI with a seamless 512KB chunked upload lifecycle (start/upload chunks/finalize/abort) while keeping post viewing unchanged.",
+      "acceptanceCriteria": [
+        "Frontend slices selected media into fixed 512 KB chunks (last chunk may be smaller).",
+        "The UI presents the upload as a single action (one composer flow) with progress, without exposing chunk details to the user.",
+        "The old single-call upload that sends the entire media Blob in one update call is removed/unused by the UI.",
+        "Finalized posts are stored as a single media Blob and served by existing post-viewing flows (viewer can render images/videos from one assembled Blob)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/utils/chunking.ts",
+          "operation": "create",
+          "description": "Implement frontend utilities to slice a File/Blob into fixed 512 KB chunks (last chunk smaller), expose helpers for total chunks and mapping chunkIndex->byte ranges."
+        },
+        {
+          "path": "frontend/src/hooks/useChunkedUpload.ts",
+          "operation": "create",
+          "description": "Create a React hook that orchestrates the chunked upload lifecycle using the backend interface (start temporary post id if needed, uploadMediaChunk for each chunk, finalizeUpload, and deleteChunk for abort/cleanup), with total-byte progress, retry for failed chunk, and cancel support."
+        },
+        {
+          "path": "frontend/src/components/upload/UploadComposer.tsx",
+          "operation": "create",
+          "description": "Build an upload composer UI that accepts a file selection and performs a single, seamless chunked upload using useChunkedUpload, showing one overall progress indicator (bytes uploaded / total) and surfacing errors without exposing chunk details to the user."
+        },
+        {
+          "path": "frontend/src/components/upload/UploadButton.tsx",
+          "operation": "create",
+          "description": "Create an UploadButton that opens the UploadComposer flow and does not call any single-call media upload function (do not use uploadMediaData)."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "create",
+          "description": "Wire UploadButton/UploadComposer into the main app flow so users initiate uploads as a single action; ensure any previous single-call upload UI path is not present/used."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Update UploadButton → UploadComposer to perform end-to-end chunked uploads with progress, retry, and cancel, while keeping the rest of the app API usage unchanged.",
+      "acceptanceCriteria": [
+        "Upload composer shows a single progress indicator representing total uploaded bytes / total file size.",
+        "Chunk upload happens sequentially or with a controlled concurrency that does not overload update calls; failed chunks can be retried without restarting the whole upload.",
+        "User can cancel an in-progress upload; cancel triggers backend abort/cleanup.",
+        "On successful finalize, the new post appears in the feed without requiring a full page reload."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useChunkedUpload.ts",
+          "operation": "modify",
+          "description": "Ensure the upload loop uses sequential or controlled concurrency chunk uploads, implements per-chunk retry logic, and supports canceling mid-flight (triggering backend cleanup via deleteChunk and resetting local state)."
+        },
+        {
+          "path": "frontend/src/components/upload/UploadComposer.tsx",
+          "operation": "modify",
+          "description": "Add UX for retry/cancel, display a single unified progress meter, and on success trigger React Query invalidation/refetch so the feed updates without a full reload."
+        },
+        {
+          "path": "frontend/src/hooks/usePosts.ts",
+          "operation": "create",
+          "description": "Add React Query hooks for fetching paginated post summaries and fetching a post by id, plus mutations for delete/finalize-related invalidation behavior (use existing backend interface methods)."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Connect upload success callbacks to React Query (invalidate paginated feed queries) so the new post appears immediately."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Ensure feed pagination uses lightweight post summaries and viewer fetches full media by postId; support share URLs and delete behaviors in the UI.",
+      "acceptanceCriteria": [
+        "Feed requests only lightweight summaries (no media bytes) and paginates in pages of 9 posts.",
+        "Viewer fetches a single post by ID and renders media via an object URL built from the returned bytes and mime type.",
+        "Share URLs with ?postId= open the viewer for that post.",
+        "Delete removes the post and its stored media; deleted posts no longer appear in feed or viewer."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/usePosts.ts",
+          "operation": "modify",
+          "description": "Implement paginated feed query that calls getPaginatedPosts(start,count) with count fixed to 9; implement getPost(postId) query and deletePost mutation with cache invalidation."
+        },
+        {
+          "path": "frontend/src/components/feed/Feed.tsx",
+          "operation": "create",
+          "description": "Create a feed view that renders pages of 9 post summaries (no media bytes rendering in list), supports pagination controls, and navigates to a viewer state for a selected post id."
+        },
+        {
+          "path": "frontend/src/components/viewer/PostViewer.tsx",
+          "operation": "create",
+          "description": "Create a post viewer that reads postId (from app state or URL param), fetches full post via usePosts hook, builds an object URL from returned bytes + mime type, and supports delete (calling deletePost and then navigating back/clearing viewer state)."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire feed + viewer navigation; parse ?postId= from the URL on load (and hash-based URLs if used) to open the viewer for that post; ensure viewer fetches only by id and feed stays summary-only."
+        },
+        {
+          "path": "frontend/src/utils/urlParams.ts",
+          "operation": "modify",
+          "description": "Extend/confirm URL param parsing supports the share behavior for postId (query string and hash-based routing), and provide a small helper to read postId reliably for the viewer."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Apply a coherent, distinct visual theme across the SPA using Tailwind (colors/typography/spacing/component styling) consistently across header, feed, upload composer, and viewer; avoid blue/purple-dominant palette.",
+      "acceptanceCriteria": [
+        "App uses a consistent theme (not default browser styling), with a clear layout for header + main content.",
+        "Theme is applied consistently across authenticated and unauthenticated states.",
+        "No blue/purple-dominant palette is used unless explicitly required later."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/index.css",
+          "operation": "modify",
+          "description": "Update CSS variables/theme tokens to a cohesive non-blue/purple-dominant palette (e.g., warm neutrals/orange accents) and ensure base typography and background/foreground styling are consistent app-wide."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Adjust Tailwind theme extensions (if needed) to support the chosen palette/typography/spacing scale consistently across the app."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add a consistent layout shell (header + centered main content) and apply shared Tailwind classes so all primary screens (landing/login state, feed, upload composer, viewer) inherit the theme."
+        },
+        {
+          "path": "frontend/src/main.tsx",
+          "operation": "modify",
+          "description": "Fix global stylesheet import so Tailwind styles load reliably (main should import the actual global CSS file path used by the project)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Use LookyLoo-Logo.png as a static, crisp, responsive top-centered header logo without layout shift.",
+      "acceptanceCriteria": [
+        "Header displays LookyLoo-Logo.png centered at the top on all main views.",
+        "Logo scales appropriately for mobile and desktop and maintains aspect ratio.",
+        "Logo asset is served as a static frontend asset (not fetched from the backend)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/public/assets/LookyLoo-Logo.png",
+          "operation": "create",
+          "description": "Add the provided LookyLoo-Logo.png to frontend public assets so it is served statically by the frontend build (do not fetch via backend)."
+        },
+        {
+          "path": "frontend/src/components/Header.tsx",
+          "operation": "create",
+          "description": "Create a header component that renders the logo centered with explicit intrinsic sizing to avoid layout shift and responsive scaling to keep it crisp across devices."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire the Header component into the app layout so the centered logo is shown on all main views (feed, upload composer state, viewer, and unauthenticated/login state)."
+        }
+      ]
+    }
+  ]
+}

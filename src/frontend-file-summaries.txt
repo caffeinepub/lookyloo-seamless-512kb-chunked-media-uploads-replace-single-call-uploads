@@ -1,0 +1,18 @@
+{
+  "frontend/src/App.tsx": "Main application component managing authentication state, profile setup, navigation between landing/feed/viewer/upload views, and URL-based post sharing.",
+  "frontend/src/components/Header.tsx": "Header component with centered logo, upload button (authenticated only), and login/logout controls.",
+  "frontend/src/components/Landing.tsx": "Landing page shown to unauthenticated users with welcome message and camera icon.",
+  "frontend/src/components/ProfileSetupModal.tsx": "Modal dialog for first-time user profile setup requiring name input.",
+  "frontend/src/components/feed/Feed.tsx": "Paginated feed view displaying 9 posts per page with navigation controls.",
+  "frontend/src/components/feed/PostCard.tsx": "Individual post card component displaying media thumbnail with click-to-view interaction.",
+  "frontend/src/components/viewer/PostViewer.tsx": "Full post viewer with media display, share functionality, and delete option for post authors.",
+  "frontend/src/components/upload/UploadButton.tsx": "Simple upload button component triggering the upload composer flow.",
+  "frontend/src/components/upload/UploadComposer.tsx": "Upload interface with file selection, progress tracking, and cancel support for chunked uploads.",
+  "frontend/src/hooks/useQueries.ts": "React Query hooks for all backend operations including profile management, post fetching, and deletion.",
+  "frontend/src/hooks/useChunkedUpload.ts": "Custom hook orchestrating 512KB chunked upload lifecycle with progress tracking, retry logic, and cancellation support.",
+  "frontend/src/utils/chunking.ts": "Utility functions for slicing files into fixed-size chunks and calculating chunk metadata.",
+  "frontend/index.css": "Global styles with warm neutral OKLCH color palette (avoiding blue/purple) for light and dark modes.",
+  "frontend/tailwind.config.js": "Tailwind configuration with custom color tokens, Inter font family, and extended design system.",
+  "frontend/src/main.tsx": "Application entry point that sets up React Query, Internet Identity provider, and renders the main App component with correct CSS import path.",
+  "frontend/src/index.css": "Global styles with warm neutral OKLCH color palette (avoiding blue/purple) for light and dark modes, moved to src directory."
+}
