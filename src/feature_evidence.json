@@ -2,14 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-replace-the-single-call-media-upload-api-with-a-seamless-chunked-upload-protocol-that-splits-files-into-512-kb-chunks-on-the-frontend-uploads-them-across-multiple-update-calls-stores-chunks-temporarily-in-the-motoko-canister-and-finalizes-into-a-single-stored-post-that-behaves-like-a-normal-single-file-post-everywhere-else-in-the-app",
-      "featureTitle": "Replace the single-call media upload API with a seamless chunked upload protocol that splits files into 512 KB chunks on the frontend, uploads them across multiple update calls, stores chunks temporarily in the Motoko canister, and finalizes into a single stored post that behaves like a normal single-file post everywhere else in the app.",
+      "featureId": "feature-update-the-unauthenticated-landing-page-frontend-src-components-landing-tsx-to-replace-the-current-camera-icon-copy-with-a-centered-hero-section-that-includes-1-a-large-circular-hero-media-element-that-plays-the-provided-lookyloo-gif-mp4-2-title-text-exactly-lookyloo-3-subtitle-text-exactly-a-li-l-media-share-on-icp-and-4-three-uniform-hero-cards-below-the-subtitle-with-the-specified-marketing-copy",
+      "featureTitle": "Update the unauthenticated landing page (frontend/src/components/Landing.tsx) to replace the current camera icon + copy with a centered hero section that includes: (1) a large circular hero media element that plays the provided LookyLoo-gif.mp4, (2) title text exactly \"LookyLoo\", (3) subtitle text exactly \"A Li'l Media Share on ICP\", and (4) three uniform hero cards below the subtitle with the specified marketing copy.",
       "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/upload/UploadButton.tsx",
-        "frontend/src/components/upload/UploadComposer.tsx",
-        "frontend/src/hooks/useChunkedUpload.ts",
-        "frontend/src/utils/chunking.ts"
+        "frontend/src/components/Landing.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -20,17 +16,15 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-1"
+        "REQ-7"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-update-the-frontend-upload-flow-uploadbutton-uploadcomposer-to-perform-chunked-uploads-end-to-end-with-progress-reporting-and-robust-error-handling-retry-a-failed-chunk-upload-allow-cancel-while-keeping-the-rest-of-the-app-api-usage-feed-viewer-unchanged",
-      "featureTitle": "Update the frontend upload flow (UploadButton → UploadComposer) to perform chunked uploads end-to-end with progress reporting and robust error handling (retry a failed chunk upload; allow cancel), while keeping the rest of the app API usage (feed, viewer) unchanged.",
+      "featureId": "feature-update-card-c-in-the-landing-hero-cards-so-that-the-provided-geekgoat-e8crlk9m-png-image-is-displayed-in-a-circle-centered-above-the-card-c-text",
+      "featureTitle": "Update Card C in the Landing hero cards so that the provided GeekGoat-e8cRlk9m.png image is displayed in a circle, centered above the Card C text.",
       "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/upload/UploadComposer.tsx",
-        "frontend/src/hooks/useChunkedUpload.ts"
+        "frontend/src/components/Landing.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -41,59 +35,14 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-3"
+        "REQ-8"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-ensure-posts-apis-support-efficient-feed-pagination-by-returning-post-summaries-for-lists-and-fetching-full-media-only-for-a-specific-post-id-while-maintaining-share-and-delete-behaviors-for-finalized-posts",
-      "featureTitle": "Ensure posts APIs support efficient feed pagination by returning post summaries for lists and fetching full media only for a specific post ID, while maintaining share and delete behaviors for finalized posts.",
+      "featureId": "feature-update-the-header-frontend-src-components-header-tsx-to-remove-the-currently-referenced-assets-lookyloo-logo-png-and-replace-it-with-the-uploaded-lookyloo-logo-png-displayed-in-a-circular-frame-remaining-centered-in-the-header-without-layout-shift",
+      "featureTitle": "Update the header (frontend/src/components/Header.tsx) to remove the currently referenced /assets/LookyLoo-Logo.png and replace it with the uploaded lookyloo-logo.png displayed in a circular frame, remaining centered in the header without layout shift.",
       "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/feed/Feed.tsx",
-        "frontend/src/components/viewer/PostViewer.tsx",
-        "frontend/src/utils/urlParams.ts"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-4"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-a-coherent-distinct-visual-theme-across-the-spa-colors-typography-spacing-and-component-styling-and-apply-it-consistently-to-the-landing-header-feed-upload-composer-and-post-viewer-screens",
-      "featureTitle": "Add a coherent, distinct visual theme across the SPA (colors, typography, spacing, and component styling) and apply it consistently to the landing, header, feed, upload composer, and post viewer screens.",
-      "files": [
-        "frontend/index.css",
-        "frontend/src/App.tsx",
-        "frontend/src/main.tsx",
-        "frontend/tailwind.config.js"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-5"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-use-the-uploaded-lookyloo-logo-png-as-the-app-logo-in-the-header-top-centered-ensuring-it-renders-crisply-and-responsively-without-layout-shift",
-      "featureTitle": "Use the uploaded LookyLoo-Logo.png as the app logo in the header (top-centered), ensuring it renders crisply and responsively without layout shift.",
-      "files": [
-        "frontend/src/App.tsx",
         "frontend/src/components/Header.tsx"
       ],
       "components": [
@@ -105,7 +54,45 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-6"
+        "REQ-9"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-the-footer-frontend-src-app-tsx-to-remove-the-existing-copyright-link-sentence-and-replace-it-with-first-line-exactly-2026-lookyloo-a-geekdice-dapp-built-with-caffeine-ai-and-a-second-line-below-it-single-line-centered-that-shows-geekgoat-e8crlk9m-png-in-a-circle-then-the-text-follow-me-on-then-the-x-logo-transparent-png-icon",
+      "featureTitle": "Update the footer (frontend/src/App.tsx) to remove the existing copyright/link sentence and replace it with: first line exactly \"2026 LookyLoo. A GeekDice dApp built with caffeine.ai\" and a second line below it (single line, centered) that shows: <GeekGoat-e8cRlk9m.png in a circle> then the text \"Follow me on\" then the X Logo Transparent.png icon.",
+      "files": [
+        "frontend/src/App.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-10"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-install-and-wire-up-the-provided-favicon-ico-so-it-appears-in-the-browser-tab-for-the-app-update-the-html-entry-point-to-reference-it",
+      "featureTitle": "Install and wire up the provided favicon.ico so it appears in the browser tab for the app (update the HTML entry point to reference it).",
+      "files": [
+        "frontend/index.html"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-11"
       ],
       "confidence": "high"
     }

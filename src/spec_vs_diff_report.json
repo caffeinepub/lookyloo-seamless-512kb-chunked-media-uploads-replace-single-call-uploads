@@ -1,80 +1,42 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-13T21:22:15.894Z",
-  "summary": "Frontend adds a 512KB chunking utility and a chunked upload hook with progress/retry/cancel, plus a themed UI with centered static logo, paginated feed, viewer share/delete. Backend main actor scaffolding is added but the diff is truncated and does not clearly show a complete chunked upload lifecycle or required validations. The feed appears to render media bytes in list results, conflicting with the lightweight-summary requirement.",
+  "generatedAt": "2026-02-13T22:41:51.338Z",
+  "summary": "REQ-7/8/9/10 appear implemented in Landing/Header/Footer components per diff. REQ-11 is partially implemented (HTML references favicon), but presence of the favicon.ico file at the public path is not evidenced. Also, index.html title was changed to unrelated chunked-upload wording, which was not requested (cosmetic/branding refresh only).",
   "missing_requirements": [
     {
-      "id": "REQ-1",
-      "requirement": "Backend exposes a complete upload lifecycle (start upload, upload chunk N, finalize, abort/cleanup) and finalized posts are stored as a single assembled Blob usable by existing viewing flows.",
-      "reason": "Frontend uses `uploadMediaChunk`, `finalizeUpload`, and `deleteChunk`, but the backend diff excerpt does not show these methods (nor a start-upload API) or the assembly of chunks into a single stored post; backend file is truncated so this cannot be verified from provided evidence.",
+      "id": "REQ-7",
+      "requirement": "Three cards render below the subtitle and maintain equal widths/heights at the same breakpoint (uniform presentation).",
+      "reason": "The Landing cards are placed in a responsive grid (md:grid-cols-3) but there is no explicit styling to enforce equal heights (e.g., h-full/flex) across cards; content-length differences could produce uneven heights.",
       "evidence": [
-        "backend/main.mo (truncated)",
-        "frontend/src/hooks/useChunkedUpload.ts"
+        "frontend/src/components/Landing.tsx"
       ]
     },
     {
-      "id": "REQ-2",
-      "requirement": "Backend chunk-upload state management/validation: enforce auth/roles, validate chunk indices/ordering/metadata, enforce 512KB max chunk size, per-upload state keyed by upload id + caller principal, abort cleanup, finalize only when all chunks received and then remove temp state.",
-      "reason": "The backend excerpt shows some placeholder/unfinished modules (`ChunkedUpload.countChunks` returns 0, `deleteOldChunk` empty) and multiple maps/lists, but no clear implementation of the required validations or lifecycle behavior is visible in the truncated diff.",
+      "id": "REQ-11",
+      "requirement": "The built app includes a favicon.ico at the expected public path.",
+      "reason": "The diff shows the HTML entry point referencing /favicon.ico, but no favicon.ico file is shown as added/modified in the diff summary, so its presence at the public path cannot be verified from provided evidence.",
       "evidence": [
-        "backend/main.mo (truncated)"
-      ]
-    },
-    {
-      "id": "REQ-4",
-      "requirement": "Feed pagination returns only lightweight post summaries (no media bytes) and fetches full media only when viewing a specific post ID.",
-      "reason": "Feed cards build an object URL directly from `post.media`, implying the feed query returns media bytes rather than a lightweight summary type. This contradicts the acceptance criteria to omit media from feed list results.",
-      "evidence": [
-        "frontend/src/components/feed/PostCard.tsx",
-        "frontend/src/hooks/useQueries.ts"
+        "frontend/index.html"
       ]
     }
   ],
   "hallucinated_features": [
     {
-      "description": "User profile management and forced first-time profile setup modal (get/save profile APIs and UI).",
-      "reason": "The BuildRequest focuses on chunked uploads, feed/viewer behaviors, theme, and logo; it does not request user profile features or a profile setup flow.",
+      "description": "Changed the HTML page title to an unrelated chunked-upload marketing sentence.",
+      "reason": "BuildRequest only asked to wire up favicon.ico in the HTML entry point; it did not request changing the document title, and the new title content references chunked uploads which is outside the stated cosmetic/branding refresh scope.",
       "evidence": [
-        "backend/main.mo (truncated): getCallerUserProfile/getUserProfile/saveCallerUserProfile/userProfiles",
-        "frontend/src/components/ProfileSetupModal.tsx",
-        "frontend/src/App.tsx",
-        "frontend/src/hooks/useQueries.ts"
-      ]
-    },
-    {
-      "description": "Access-control initialization via a URL-provided 'caffeineAdminToken' secret passed to `_initializeAccessControlWithSecret`.",
-      "reason": "Not requested by the BuildRequest (auth non-goal only specifies Internet Identity; no admin-token bootstrap requirement was specified).",
-      "evidence": [
-        "frontend/src/hooks/useActor.ts"
+        "frontend/index.html"
       ]
     }
   ],
-  "confidence": 0.64,
+  "confidence": 0.74,
   "changed_files": [
-    "all_files_summary.json",
-    "backend/main.mo",
     "frontend-file-summaries.txt",
-    "frontend/index.css",
     "frontend/index.html",
     "frontend/src/App.tsx",
     "frontend/src/components/Header.tsx",
     "frontend/src/components/Landing.tsx",
-    "frontend/src/components/ProfileSetupModal.tsx",
-    "frontend/src/components/feed/Feed.tsx",
-    "frontend/src/components/feed/PostCard.tsx",
-    "frontend/src/components/upload/UploadButton.tsx",
-    "frontend/src/components/upload/UploadComposer.tsx",
-    "frontend/src/components/viewer/PostViewer.tsx",
-    "frontend/src/hooks/useActor.ts",
-    "frontend/src/hooks/useChunkedUpload.ts",
-    "frontend/src/hooks/useInternetIdentity.ts",
-    "frontend/src/hooks/useQueries.ts",
-    "frontend/src/index.css",
-    "frontend/src/main.tsx",
-    "frontend/src/utils/chunking.ts",
-    "frontend/src/utils/urlParams.ts",
-    "frontend/tailwind.config.js",
     "project_state.json"
   ]
 }

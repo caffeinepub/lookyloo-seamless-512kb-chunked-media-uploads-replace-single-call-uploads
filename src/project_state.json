@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 3,
+  "projectStateVersion": 5,
   "summary": "Media-sharing app on ICP (Motoko canister + React/Tailwind/React Query) with authentication/roles, user profiles, posts with media, feed + viewer UI, and a new requirement to use seamless chunked uploads (512KB chunks) instead of single-call media uploads due to update-call size limits.",
   "architectural_notes": [
     "Chunked uploads must fully replace single-call media upload (no single-call createPost with full media Blob).",
@@ -49,6 +49,46 @@
         "REQ-6"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-update-the-unauthenticated-landing-page-frontend-src-components-landing-tsx-to-replace-the-current-camera-icon-copy-with-a-centered-hero-section-that-includes-1-a-large-circular-hero-media-element-that-plays-the-provided-lookyloo-gif-mp4-2-title-text-exactly-lookyloo-3-subtitle-text-exactly-a-li-l-media-share-on-icp-and-4-three-uniform-hero-cards-below-the-subtitle-with-the-specified-marketing-copy",
+      "title": "Update the unauthenticated landing page (frontend/src/components/Landing.tsx) to replace the current camera icon + copy with a centered hero section that includes: (1) a large circular hero media element that plays the provided LookyLoo-gif.mp4, (2) title text exactly \"LookyLoo\", (3) subtitle text exactly \"A Li'l Media Share on ICP\", and (4) three uniform hero cards below the subtitle with the specified marketing copy.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-card-c-in-the-landing-hero-cards-so-that-the-provided-geekgoat-e8crlk9m-png-image-is-displayed-in-a-circle-centered-above-the-card-c-text",
+      "title": "Update Card C in the Landing hero cards so that the provided GeekGoat-e8cRlk9m.png image is displayed in a circle, centered above the Card C text.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-header-frontend-src-components-header-tsx-to-remove-the-currently-referenced-assets-lookyloo-logo-png-and-replace-it-with-the-uploaded-lookyloo-logo-png-displayed-in-a-circular-frame-remaining-centered-in-the-header-without-layout-shift",
+      "title": "Update the header (frontend/src/components/Header.tsx) to remove the currently referenced /assets/LookyLoo-Logo.png and replace it with the uploaded lookyloo-logo.png displayed in a circular frame, remaining centered in the header without layout shift.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-footer-frontend-src-app-tsx-to-remove-the-existing-copyright-link-sentence-and-replace-it-with-first-line-exactly-2026-lookyloo-a-geekdice-dapp-built-with-caffeine-ai-and-a-second-line-below-it-single-line-centered-that-shows-geekgoat-e8crlk9m-png-in-a-circle-then-the-text-follow-me-on-then-the-x-logo-transparent-png-icon",
+      "title": "Update the footer (frontend/src/App.tsx) to remove the existing copyright/link sentence and replace it with: first line exactly \"2026 LookyLoo. A GeekDice dApp built with caffeine.ai\" and a second line below it (single line, centered) that shows: <GeekGoat-e8cRlk9m.png in a circle> then the text \"Follow me on\" then the X Logo Transparent.png icon.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-install-and-wire-up-the-provided-favicon-ico-so-it-appears-in-the-browser-tab-for-the-app-update-the-html-entry-point-to-reference-it",
+      "title": "Install and wire up the provided favicon.ico so it appears in the browser tab for the app (update the HTML entry point to reference it).",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -64,6 +104,18 @@
       "reqIds": [
         "REQ-2"
       ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Update landing page hero: center a large circular LookyLoo-gif.mp4, change title text to 'LookyLoo' with subtitle 'A Li'l Media Share on ICP', and add three uniform hero cards with specified copy; Card C includes GeekGoat.png in a circle centered above the text.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Update header/footer branding assets: replace existing header logo with lookyloo-logo.png in a circle, install favicon.ico for the browser tab, and replace footer text with '2026 LookyLoo. A GeekDice dApp built with caffeine.ai' plus a centered single-line second row: '<GeekGoat.png in a circle> Follow me on <X Logo Transparent.png>'.",
+      "reqIds": [],
       "status": "pending"
     }
   ],

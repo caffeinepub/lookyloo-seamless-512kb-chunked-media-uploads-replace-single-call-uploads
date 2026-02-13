@@ -38,11 +38,13 @@ export default function Header({ isAuthenticated, onUploadClick }: HeaderProps) 
                     <div className="flex-1" />
 
                     <div className="flex items-center justify-center">
-                        <img
-                            src="/assets/LookyLoo-Logo.png"
-                            alt="LookyLoo"
-                            className="h-16 w-auto object-contain"
-                        />
+                        <div className="flex h-16 w-16 items-center justify-center overflow-hidden rounded-full bg-background">
+                            <img
+                                src="/assets/lookyloo-logo.png"
+                                alt="LookyLoo"
+                                className="h-full w-full object-cover"
+                            />
+                        </div>
                     </div>
 
                     <div className="flex flex-1 items-center justify-end gap-3">

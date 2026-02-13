@@ -1,168 +1,119 @@
 {
   "kind": "build_request",
-  "title": "LookyLoo: Seamless 512KB Chunked Media Uploads (replace single-call uploads)",
+  "title": "Branding & landing page cosmetic refresh (hero video, header/footer, cards, favicon)",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-1",
-      "text": "Replace the single-call media upload API with a seamless chunked upload protocol that splits files into 512 KB chunks on the frontend, uploads them across multiple update calls, stores chunks temporarily in the Motoko canister, and finalizes into a single stored post that behaves like a normal single-file post everywhere else in the app.",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-2",
-          "msg-3",
-          "msg-4",
-          "msg-5"
-        ],
-        "quotes": [
-          "“Build a media-sharing app that supports full chunked uploads. Files must be sliced into small pieces on the frontend, uploaded across multiple update calls, stored as chunks in the backend, and reassembled into the final media file. Do not use single-call uploads.”",
-          "1 replace",
-          "2. 512KB",
-          "It should be invisible to the user.  To the user it needs to look like a single file but code it in a way that is most efficient and breaks into smaller chunks"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Frontend slices selected media into fixed 512 KB chunks (last chunk may be smaller).",
-        "Backend exposes an upload lifecycle that supports: starting an upload, uploading chunk N, finalizing the upload into a post, and aborting/cleanup.",
-        "The UI presents the upload as a single action (one composer flow) with progress, without exposing chunk details to the user.",
-        "The old single-call upload that sends the entire media Blob in one update call is removed/unused by the UI.",
-        "Finalized posts are stored as a single media Blob and served by existing post-viewing flows (viewer can render images/videos from one assembled Blob)."
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "text": "Implement backend chunk-upload state management and validation in the single Motoko main actor: enforce authorization/roles, validate chunk ordering/indices, track received chunks, enforce size limits per chunk, and ensure uploads can be resumed or safely rejected when inconsistent.",
-      "target": "backend",
-      "source": {
-        "messageIds": [
-          "msg-1",
-          "msg-2",
-          "msg-3",
-          "msg-4"
-        ],
-        "quotes": [
-          "Authentication roles",
-          "Users must have the “user” role to create posts or save profiles",
-          "IMPORTANT: mediaBlob must be < 2 MB due to update-call limits.",
-          "2. 512KB"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Only authenticated callers with the required role can start uploads, upload chunks, and finalize posts.",
-        "Backend rejects chunks that exceed the configured maximum chunk size (512 KB) or that have invalid indices/metadata.",
-        "Backend maintains temporary per-upload state keyed by an upload identifier and caller principal, preventing other principals from injecting chunks into someone else’s upload.",
-        "Backend supports aborting an upload and cleaning up temporary chunks/state.",
-        "Finalize only succeeds when all expected chunks are received; on success, temporary chunk state is removed."
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "text": "Update the frontend upload flow (UploadButton → UploadComposer) to perform chunked uploads end-to-end with progress reporting and robust error handling (retry a failed chunk upload; allow cancel), while keeping the rest of the app API usage (feed, viewer) unchanged.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-1",
-          "msg-2",
-          "msg-4"
-        ],
-        "quotes": [
-          "Upload Flow UploadButton → UploadComposer → calls backend createPost() directly",
-          "No chunking.",
-          "It should be invisible to the user.  To the user it needs to look like a single file but code it in a way that is most efficient and breaks into smaller chunks"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Upload composer shows a single progress indicator representing total uploaded bytes / total file size.",
-        "Chunk upload happens sequentially or with a controlled concurrency that does not overload update calls; failed chunks can be retried without restarting the whole upload.",
-        "User can cancel an in-progress upload; cancel triggers backend abort/cleanup.",
-        "On successful finalize, the new post appears in the feed without requiring a full page reload."
-      ]
-    },
-    {
-      "id": "REQ-4",
-      "text": "Ensure posts APIs support efficient feed pagination by returning post summaries for lists and fetching full media only for a specific post ID, while maintaining share and delete behaviors for finalized posts.",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-1"
-        ],
-        "quotes": [
-          "getPosts(start, count) → list of summaries",
-          "getPost(id) → full post including bytes",
-          "Allows sharing via a special URL with ?postId=",
-          "Allows deletion of uploaded media"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Feed requests only lightweight summaries (no media bytes) and paginates in pages of 9 posts.",
-        "Viewer fetches a single post by ID and renders media via an object URL built from the returned bytes and mime type.",
-        "Share URLs with ?postId= open the viewer for that post.",
-        "Delete removes the post and its stored media; deleted posts no longer appear in feed or viewer."
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "text": "Add a coherent, distinct visual theme across the SPA (colors, typography, spacing, and component styling) and apply it consistently to the landing, header, feed, upload composer, and post viewer screens.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-0"
-        ],
-        "quotes": [
-          "Please tell me what app to create, or ask me a question."
-        ]
-      },
-      "acceptanceCriteria": [
-        "App uses a consistent theme (not default browser styling), with a clear layout for header + main content.",
-        "Theme is applied consistently across authenticated and unauthenticated states.",
-        "No blue/purple-dominant palette is used unless explicitly required later."
-      ]
-    },
-    {
-      "id": "REQ-6",
-      "text": "Use the uploaded LookyLoo-Logo.png as the app logo in the header (top-centered), ensuring it renders crisply and responsively without layout shift.",
+      "id": "REQ-7",
+      "text": "Update the unauthenticated landing page (frontend/src/components/Landing.tsx) to replace the current camera icon + copy with a centered hero section that includes: (1) a large circular hero media element that plays the provided LookyLoo-gif.mp4, (2) title text exactly \"LookyLoo\", (3) subtitle text exactly \"A Li'l Media Share on ICP\", and (4) three uniform hero cards below the subtitle with the specified marketing copy.",
       "target": "frontend",
       "source": {
         "messageIds": [
           "msg-6"
         ],
         "quotes": [
-          "The user has uploaded 1 image(s): LookyLoo-Logo.png."
+          "1. attached is the logo. make it the center page, kinda big, and put it in a circle. attached LookyLoo-gif.mp4",
+          "2. change \"Welcome to LookyLoo\" to just \"LookyLoo\". Under that text, \"A Li'l Media Share on ICP\"",
+          "6. Add hero cards on the main page below the logo and LookyLoo taglines. 3 uniform cards. card A: Share your media with the world. Uses ICP ID2 for login, no personal information needed. Ever. Card B: Easy to Use. Easy to Share. Blockchain encryptied and owned only by you. You decide who sees it. Card C: Built, designed and deployed by GeekDice - A Non-Dev. Try it yourself at caffeine.ai.",
+          "1. no. the logo is there. it's called: LookyLoo-gif.mp4"
         ]
       },
       "acceptanceCriteria": [
-        "Header displays LookyLoo-Logo.png centered at the top on all main views.",
-        "Logo scales appropriately for mobile and desktop and maintains aspect ratio.",
-        "Logo asset is served as a static frontend asset (not fetched from the backend)."
+        "When logged out, the Landing page shows a large circular hero element that renders the LookyLoo-gif.mp4 media centered above the title.",
+        "The Landing title reads exactly \"LookyLoo\" and the subtitle reads exactly \"A Li'l Media Share on ICP\".",
+        "Three cards render below the subtitle and maintain equal widths/heights at the same breakpoint (uniform presentation).",
+        "Card A text reads exactly: \"Share your media with the world. Uses ICP ID2 for login, no personal information needed. Ever.\"",
+        "Card B text reads exactly: \"Easy to Use. Easy to Share. Blockchain encryptied and owned only by you. You decide who sees it.\"",
+        "Card C text reads exactly: \"Built, designed and deployed by GeekDice - A Non-Dev. Try it yourself at caffeine.ai.\""
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "Update Card C in the Landing hero cards so that the provided GeekGoat-e8cRlk9m.png image is displayed in a circle, centered above the Card C text.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-6"
+        ],
+        "quotes": [
+          "7. In card C put my personal logo GeekGoat.png attached in a circle with the text.",
+          "3. Centered above"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Card C shows the GeekGoat-e8cRlk9m.png image clipped to a circle.",
+        "The GeekGoat image is horizontally centered and positioned above the Card C text content."
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "text": "Update the header (frontend/src/components/Header.tsx) to remove the currently referenced /assets/LookyLoo-Logo.png and replace it with the uploaded lookyloo-logo.png displayed in a circular frame, remaining centered in the header without layout shift.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-6"
+        ],
+        "quotes": [
+          "3. Header: Remove the logo thats there and replace with attached lookyloo-logo.png. also put it in a circle"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Header no longer references /assets/LookyLoo-Logo.png.",
+        "Header renders lookyloo-logo.png as the centered logo.",
+        "Logo is displayed inside a circle (clipped/masked) and remains crisp/responsive across common breakpoints."
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "text": "Update the footer (frontend/src/App.tsx) to remove the existing copyright/link sentence and replace it with: first line exactly \"2026 LookyLoo. A GeekDice dApp built with caffeine.ai\" and a second line below it (single line, centered) that shows: <GeekGoat-e8cRlk9m.png in a circle> then the text \"Follow me on\" then the X Logo Transparent.png icon.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-6"
+        ],
+        "quotes": [
+          "5. Footer. Delete the text and replace with \"2026 LookyLoo. A GeekDice dApp built with caffeine.ai\"",
+          "8. Footer: on a single line under \"2026 LookyLoo..\" create, \"<GeekGoat.png in a circle>Follow me on <X Logo Transparent.png>\"",
+          "2. exactly. centered and all one line."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Footer displays exactly two rows of content.",
+        "Row 1 text matches exactly: \"2026 LookyLoo. A GeekDice dApp built with caffeine.ai\".",
+        "Row 2 is a single centered line containing (in order): circular GeekGoat-e8cRlk9m.png, the text \"Follow me on\", and the X Logo Transparent.png icon.",
+        "Footer no longer includes the previous dynamic year or the previous caffeine.ai UTM link block."
+      ]
+    },
+    {
+      "id": "REQ-11",
+      "text": "Install and wire up the provided favicon.ico so it appears in the browser tab for the app (update the HTML entry point to reference it).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-6"
+        ],
+        "quotes": [
+          "4. Install favicon.ico (attached) for the browser tab"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The built app includes a favicon.ico at the expected public path.",
+        "The HTML entry point references the favicon.ico so the browser tab shows the favicon."
       ]
     }
   ],
   "constraints": [
-    "Use Motoko in a single-actor backend (all logic in the main actor).",
-    "Frontend must be React + TypeScript with Tailwind and React Query.",
-    "Do not edit files under frontend/src/components/ui or any frontend immutablePaths listed in SYSTEM_CONTEXT; compose them instead.",
-    "Chunk size must be 512 KB.",
-    "Chunked uploads must replace single-call uploads; do not implement single-call media uploads in the UI.",
-    "Do not route static assets (e.g., the logo) through the backend."
+    "Do not modify any files under frontend/src/components/ui (compose them instead).",
+    "Do not edit immutable hook files: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx.",
+    "Keep backend behavior unchanged; these are cosmetic/branding updates only."
   ],
   "nonGoals": [
-    "Implementing third-party authentication providers (only Internet Identity).",
-    "Adding real-time features (WebSockets/chat/push).",
-    "Using external databases or cloud storage.",
-    "Adding chunked download/streaming; only upload is chunked while stored media is served as a single Blob per post."
+    "Changing Internet Identity behavior or introducing multiple distinct account profiles beyond Internet Identity anchors.",
+    "Changing the chunked upload protocol, post APIs, pagination, or authorization logic.",
+    "Adding third-party auth providers or social API integrations for X beyond displaying the provided X icon."
   ],
   "imageRequirements": {
     "required": [],
     "edits": []
-  },
-  "userProfileUpdate": {
-    "goalsToAdd": [],
-    "goalsToRemove": [],
-    "preferencesToAdd": [],
-    "preferencesToRemove": [],
-    "miscToAdd": [],
-    "miscToRemove": [],
-    "fieldsToSet": {},
-    "fieldsToDelete": []
   }
 }

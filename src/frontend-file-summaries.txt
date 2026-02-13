@@ -1,7 +1,7 @@
 {
-  "frontend/src/App.tsx": "Main application component managing authentication state, profile setup, navigation between landing/feed/viewer/upload views, and URL-based post sharing.",
-  "frontend/src/components/Header.tsx": "Header component with centered logo, upload button (authenticated only), and login/logout controls.",
-  "frontend/src/components/Landing.tsx": "Landing page shown to unauthenticated users with welcome message and camera icon.",
+  "frontend/src/App.tsx": "Main application component managing authentication state, profile setup, navigation between landing/feed/viewer/upload views, and custom footer with GeekDice branding and social links.",
+  "frontend/src/components/Header.tsx": "Header component with circular lookyloo-logo.png, upload button (authenticated only), and login/logout controls.",
+  "frontend/src/components/Landing.tsx": "Landing page with circular hero video (LookyLoo-gif.mp4), title \"LookyLoo\", subtitle \"A Li'l Media Share on ICP\", and three uniform marketing cards including GeekGoat image in Card C.",
   "frontend/src/components/ProfileSetupModal.tsx": "Modal dialog for first-time user profile setup requiring name input.",
   "frontend/src/components/feed/Feed.tsx": "Paginated feed view displaying 9 posts per page with navigation controls.",
   "frontend/src/components/feed/PostCard.tsx": "Individual post card component displaying media thumbnail with click-to-view interaction.",
@@ -14,5 +14,6 @@
   "frontend/index.css": "Global styles with warm neutral OKLCH color palette (avoiding blue/purple) for light and dark modes.",
   "frontend/tailwind.config.js": "Tailwind configuration with custom color tokens, Inter font family, and extended design system.",
   "frontend/src/main.tsx": "Application entry point that sets up React Query, Internet Identity provider, and renders the main App component with correct CSS import path.",
-  "frontend/src/index.css": "Global styles with warm neutral OKLCH color palette (avoiding blue/purple) for light and dark modes, moved to src directory."
+  "frontend/src/index.css": "Global styles with warm neutral OKLCH color palette (avoiding blue/purple) for light and dark modes, moved to src directory.",
+  "frontend/index.html": "HTML entry point with favicon reference and page title."
 }

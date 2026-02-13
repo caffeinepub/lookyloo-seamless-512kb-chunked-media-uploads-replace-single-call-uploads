@@ -1,13 +1,13 @@
 # Specification
 
 ## Summary
-**Goal:** Replace single-call media uploads with a seamless 512 KB chunked upload flow (frontend + Motoko backend) while keeping posts and viewing behavior the same, and apply a consistent LookyLoo theme with the provided logo in the header.
+**Goal:** Refresh logged-out landing page branding and layout with a hero video, updated header/footer visuals, and a wired favicon.
 
 **Planned changes:**
-- Implement a backend chunked-upload lifecycle in the single Motoko main actor: start upload, accept chunk N (512 KB max), finalize into a single stored media Blob, and abort/cleanup; enforce authentication/“user” role, per-caller upload ownership, chunk index/order validation, and resume-safe state tracking.
-- Update the React upload flow (UploadButton → UploadComposer) to slice files into 512 KB chunks, upload sequentially (or controlled concurrency) with total progress, retry failed chunk uploads, and support cancel (calling abort).
-- Remove/stop using the old UI path that uploads the full media Blob in a single update call.
-- Ensure post APIs support lightweight feed pagination (summaries only) and fetching a single post with full media by ID; keep share-by-URL (?postId=) and delete behaviors working for finalized posts.
-- Add a coherent, distinct visual theme (non blue/purple-dominant) across landing, header, feed, upload composer, and viewer; use the provided LookyLoo-Logo.png centered in the header as a static frontend asset.
+- Update `frontend/src/components/Landing.tsx` to replace the current camera icon/copy with a centered hero section containing: a large circular video element playing `LookyLoo-gif.mp4`, the title text `LookyLoo`, the subtitle text `A Li'l Media Share on ICP`, and three uniform hero cards with the provided exact marketing copy.
+- Update the Landing Card C to display `GeekGoat-e8cRlk9m.png` in a circle, centered above the Card C text.
+- Update `frontend/src/components/Header.tsx` to remove references to `/assets/LookyLoo-Logo.png` and render `lookyloo-logo.png` centered in the header in a circular frame without layout shift.
+- Update the footer in `frontend/src/App.tsx` to replace the existing content with two centered rows: (1) `2026 LookyLoo. A GeekDice dApp built with caffeine.ai` and (2) a single line containing (in order) circular `GeekGoat-e8cRlk9m.png`, the text `Follow me on`, and the `X Logo Transparent.png` icon.
+- Install and reference the provided `favicon.ico` in the HTML entry point so it appears in the browser tab.
 
-**User-visible outcome:** Users can select an image/video and upload it as a normal single action with a single progress indicator; uploads are chunked invisibly in the background, can be retried or canceled, and completed posts appear in the feed and can be viewed/shared/deleted as before.
+**User-visible outcome:** When logged out, users see a refreshed landing page with a circular hero video, updated title/subtitle, three consistent marketing cards (including a GeekGoat badge on Card C), an updated centered circular header logo, a two-line footer with GeekGoat + X icon, and the app favicon visible in the browser tab.

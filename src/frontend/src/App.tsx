@@ -86,17 +86,20 @@ export default function App() {
 
             <footer className="mt-16 border-t border-border py-8">
                 <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
-                    <p>
-                        © {new Date().getFullYear()} LookyLoo. Built with love using{' '}
-                        <a
-                            href={`https://caffeine.ai/?utm_source=Caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(window.location.hostname)}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-primary hover:underline"
-                        >
-                            caffeine.ai
-                        </a>
-                    </p>
+                    <p className="mb-3">2026 LookyLoo. A GeekDice dApp built with caffeine.ai</p>
+                    <div className="flex items-center justify-center gap-2">
+                        <img
+                            src="/assets/GeekGoat-e8cRlk9m.png"
+                            alt="GeekGoat"
+                            className="h-6 w-6 rounded-full object-cover"
+                        />
+                        <span>Follow me on</span>
+                        <img
+                            src="/assets/X Logo Transparent.png"
+                            alt="X"
+                            className="h-5 w-5 object-contain"
+                        />
+                    </div>
                 </div>
             </footer>
 
