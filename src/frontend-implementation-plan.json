@@ -1,59 +1,55 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Header alignment, landing title styling, and footer social icon links",
+  "title": "Install generated 64×64 PNG favicon and wire it in index.html",
   "requirements": [
     {
-      "id": "REQ-12",
-      "summary": "Re-layout the header so the circular LookyLoo logo sits on the far left with the specified greeting text to its right, while keeping auth controls and Upload on the far right.",
+      "id": "REQ-19",
+      "summary": "Add the generated 64×64 PNG favicon to frontend public assets and serve it at a stable URL.",
       "acceptanceCriteria": [
-        "In the header, the logo appears at the far left of the header row (no longer centered).",
-        "The header displays the exact sentence \"Hey there, LookyLoo!  Wanna see somethin'?\" to the right of the logo (including the double space between the sentences).",
-        "The Login/Logout control remains on the right side; when authenticated, the Upload button also remains on the right side.",
-        "No layout shift occurs for the logo sizing compared to the current circular logo presentation."
+        "The repository contains the file favicon-64.png under frontend/public (preferred: frontend/public/assets/generated/favicon-64.png).",
+        "When the app is running, requesting the favicon URL returns a 200 and the content-type is image/png."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/Header.tsx",
-          "operation": "modify",
-          "description": "Adjust the header flex layout to use a left-aligned group (existing circular /assets/lookyloo-logo.png + greeting text immediately to its right) and a right-aligned group for Upload (when authenticated) and Login/Logout. Preserve the current logo container sizing and circular framing. Ensure the rendered greeting preserves the required double space between sentences (e.g., via non-breaking spaces) while matching the exact text. Verify the component's usage instructions before implementing."
+          "path": "frontend/public/assets/generated/favicon-64.png",
+          "operation": "create",
+          "description": "Add the already-generated 64×64 PNG favicon asset so it is served statically at a stable URL (/assets/generated/favicon-64.png)."
         }
       ]
     },
     {
-      "id": "REQ-13",
-      "summary": "Style the unauthenticated landing page H1 \"LookyLoo\" in orange with a calligraphy-style font, without affecting header text.",
+      "id": "REQ-20",
+      "summary": "Update the HTML entry point to reference the PNG favicon instead of /favicon.ico.",
       "acceptanceCriteria": [
-        "The landing page H1 title \"LookyLoo\" renders in orange.",
-        "The landing page H1 title uses a calligraphy-style (or close) font distinct from the default sans font.",
-        "Header text does not inherit this orange/calligraphy styling."
+        "frontend/index.html includes a <link rel=\"icon\"> tag pointing to the PNG favicon URL (e.g., /assets/generated/favicon-64.png) and uses type=\"image/png\".",
+        "The previous /favicon.ico reference is removed or superseded such that modern browsers display the PNG favicon in the tab."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/Landing.tsx",
+          "path": "frontend/index.html",
           "operation": "modify",
-          "description": "Update only the landing page H1 to apply an orange color and a calligraphy-style font via a dedicated class/utility so the styling remains scoped to the landing title and does not impact the Header component. Verify the component's usage instructions before implementing."
+          "description": "Replace the existing /favicon.ico <link rel=\"icon\"> tag with a PNG favicon link referencing /assets/generated/favicon-64.png and type=\"image/png\" (optionally include sizes=\"64x64\"). Ensure the .ico reference is removed or clearly superseded."
+        }
+      ]
+    },
+    {
+      "id": "REQ-21",
+      "summary": "Add a repeatable verification procedure for favicon rendering in dev and production builds.",
+      "acceptanceCriteria": [
+        "In local dev (vite) the browser tab displays the generated favicon.",
+        "After building and serving the production assets, the browser tab displays the generated favicon."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/docs/favicon-verification.md",
+          "operation": "create",
+          "description": "Document a simple, repeatable manual verification checklist for favicon rendering in both local dev (vite) and production build serving, including the exact URL to request (/assets/generated/favicon-64.png) and expected content-type (image/png)."
         },
         {
-          "path": "frontend/src/index.css",
+          "path": "frontend/package.json",
           "operation": "modify",
-          "description": "Add a small, scoped utility/class for the landing H1 calligraphy-style font stack (e.g., common script/cursive fallbacks) to ensure a distinct calligraphy-like appearance without changing global typography. Verify the component's usage instructions before implementing."
-        }
-      ]
-    },
-    {
-      "id": "REQ-14",
-      "summary": "Make only the GeekGoat and X icons in the footer clickable, and set the X icon to link to the provided X profile URL, without making the full row clickable.",
-      "acceptanceCriteria": [
-        "Clicking the X icon navigates to https://x.com/WillGeek4Food.",
-        "The GeekGoat icon is independently clickable (focusable/clickable element) without making the surrounding footer row clickable.",
-        "Clicking non-icon text/areas in the footer row (e.g., \"Follow me on\") does not navigate anywhere."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Refactor the footer \"Follow me on\" row so each icon is its own accessible clickable element (e.g., separate <a> elements wrapping only each <img>). Set the X icon link target to https://x.com/WillGeek4Food and keep the \"Follow me on\" text as non-clickable content; ensure no click handler or link wraps the entire row. Verify the component's usage instructions before implementing."
+          "description": "Add or update a convenient script for previewing/serving the production build (if not already present) so the production favicon check can be performed consistently."
         }
       ]
     }

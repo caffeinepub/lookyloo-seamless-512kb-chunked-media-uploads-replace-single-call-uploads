@@ -1,92 +1,74 @@
 {
   "kind": "build_request",
-  "title": "Update header layout, landing title styling, and footer social links",
+  "title": "Generate and install a 64×64 PNG favicon derived from the LookyLoo logo",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-12",
-      "text": "Update the header layout so the LookyLoo circular logo is positioned on the far left, and place the exact text \"Hey there, LookyLoo!  Wanna see somethin'?\" immediately to the right of the logo, while keeping the auth controls and (when authenticated) Upload button aligned on the right side of the header.",
+      "id": "REQ-19",
+      "text": "Add the already-generated 64×64 PNG favicon asset (favicon-64.png) to the frontend static assets and ensure it is served by the app at a stable URL.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4",
-          "msg-5"
+          "msg-recent-19"
         ],
         "quotes": [
-          "far left with text to the right of it.",
-          "Header:  That log is correct but move it to the far left and add, \"Hey there, LookyLoo!  Wanna see somethin'?\""
+          "take the existing LookyLoo-logo.png thats on the Header and create your own favicon to put in the browser tab.",
+          "64x64",
+          "go for it"
         ]
       },
       "acceptanceCriteria": [
-        "In the header, the logo appears at the far left of the header row (no longer centered).",
-        "The header displays the exact sentence \"Hey there, LookyLoo!  Wanna see somethin'?\" to the right of the logo (including the double space between the sentences).",
-        "The Login/Logout control remains on the right side; when authenticated, the Upload button also remains on the right side.",
-        "No layout shift occurs for the logo sizing compared to the current circular logo presentation."
+        "The repository contains the file favicon-64.png under frontend/public (preferred: frontend/public/assets/generated/favicon-64.png).",
+        "When the app is running, requesting the favicon URL returns a 200 and the content-type is image/png."
       ]
     },
     {
-      "id": "REQ-13",
-      "text": "On the unauthenticated landing page only, style the title text \"LookyLoo\" to be orange and use a calligraphy-style (or close) font; do not apply this orange/calligraphy styling to the header text.",
+      "id": "REQ-20",
+      "text": "Update the HTML entry point (frontend/index.html) to reference the generated 64×64 PNG favicon instead of /favicon.ico.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4",
-          "msg-5"
+          "msg-recent-19"
         ],
         "quotes": [
-          "Make the words, \"LookyLoo\" orange and caligraphy-type font or close to that type of font.",
-          "Not the header.  Only the title ."
+          "create your own favicon to put in the browser tab."
         ]
       },
       "acceptanceCriteria": [
-        "The landing page H1 title \"LookyLoo\" renders in orange.",
-        "The landing page H1 title uses a calligraphy-style (or close) font distinct from the default sans font.",
-        "Header text does not inherit this orange/calligraphy styling."
+        "frontend/index.html includes a <link rel=\"icon\"> tag pointing to the PNG favicon URL (e.g., /assets/generated/favicon-64.png) and uses type=\"image/png\".",
+        "The previous /favicon.ico reference is removed or superseded such that modern browsers display the PNG favicon in the tab."
       ]
     },
     {
-      "id": "REQ-14",
-      "text": "In the footer \"Follow me on\" row, make only the GeekGoat icon and the X icon clickable; set the X icon click target to navigate to https://x.com/WillGeek4Food. Do not make the entire row clickable.",
+      "id": "REQ-21",
+      "text": "Verify favicon rendering in both local dev and production build outputs so the browser tab shows the LookyLoo-derived favicon without relying on a .ico upload.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4",
-          "msg-5"
+          "msg-recent-19"
         ],
         "quotes": [
-          "In the footer where we have 'follow on X\" make the X logo navigate to: https://x.com/WillGeek4Food",
-          "Just the X and GeekGoat icons should be clickable."
+          "your shit is broken... do this instead."
         ]
       },
       "acceptanceCriteria": [
-        "Clicking the X icon navigates to https://x.com/WillGeek4Food.",
-        "The GeekGoat icon is independently clickable (focusable/clickable element) without making the surrounding footer row clickable.",
-        "Clicking non-icon text/areas in the footer row (e.g., \"Follow me on\") does not navigate anywhere."
+        "In local dev (vite) the browser tab displays the generated favicon.",
+        "After building and serving the production assets, the browser tab displays the generated favicon."
       ]
     }
   ],
   "constraints": [
-    "Frontend immutable paths must not be edited: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui.",
-    "Keep the existing LookyLoo logo asset usage (/assets/lookyloo-logo.png) and circular framing; only reposition within the header layout.",
-    "Use English for all user-facing text."
+    "Do not depend on uploading favicon.ico; use only the generated PNG favicon.",
+    "Do not edit files under frontend/src/components/ui or other immutablePaths.",
+    "Keep the backend unchanged (no canister changes needed for favicon)."
   ],
   "nonGoals": [
-    "No changes to backend Motoko canister logic or data models.",
-    "No changes to the chunked upload protocol or feed/viewer behavior beyond layout/styling impacts required by the header/footer updates.",
-    "Do not make the entire footer \"Follow me on\" row a single clickable link."
+    "Creating a multi-resolution .ico file.",
+    "Adding dynamic/runtime favicon switching.",
+    "Changing the existing header logo or other branding assets beyond favicon wiring."
   ],
   "imageRequirements": {
     "required": [],
     "edits": []
-  },
-  "userProfileUpdate": {
-    "goalsToAdd": [],
-    "goalsToRemove": [],
-    "preferencesToAdd": [],
-    "preferencesToRemove": [],
-    "miscToAdd": [],
-    "miscToRemove": [],
-    "fieldsToSet": {},
-    "fieldsToDelete": []
   }
 }

@@ -2,10 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-update-the-header-layout-so-the-lookyloo-circular-logo-is-positioned-on-the-far-left-and-place-the-exact-text-hey-there-lookyloo-wanna-see-somethin-immediately-to-the-right-of-the-logo-while-keeping-the-auth-controls-and-when-authenticated-upload-button-aligned-on-the-right-side-of-the-header",
-      "featureTitle": "Update the header layout so the LookyLoo circular logo is positioned on the far left, and place the exact text \"Hey there, LookyLoo!  Wanna see somethin'?\" immediately to the right of the logo, while keeping the auth controls and (when authenticated) Upload button aligned on the right side of the header.",
+      "featureId": "feature-update-the-html-entry-point-frontend-index-html-to-reference-the-generated-64-64-png-favicon-instead-of-favicon-ico",
+      "featureTitle": "Update the HTML entry point (frontend/index.html) to reference the generated 64×64 PNG favicon instead of /favicon.ico.",
       "files": [
-        "frontend/src/components/Header.tsx"
+        "frontend/index.html"
       ],
       "components": [
         "authorization@4.0.0",
@@ -16,46 +16,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-12"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-on-the-unauthenticated-landing-page-only-style-the-title-text-lookyloo-to-be-orange-and-use-a-calligraphy-style-or-close-font-do-not-apply-this-orange-calligraphy-styling-to-the-header-text",
-      "featureTitle": "On the unauthenticated landing page only, style the title text \"LookyLoo\" to be orange and use a calligraphy-style (or close) font; do not apply this orange/calligraphy styling to the header text.",
-      "files": [
-        "frontend/src/components/Landing.tsx",
-        "frontend/src/index.css"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-13"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-in-the-footer-follow-me-on-row-make-only-the-geekgoat-icon-and-the-x-icon-clickable-set-the-x-icon-click-target-to-navigate-to-https-x-com-willgeek4food-do-not-make-the-entire-row-clickable",
-      "featureTitle": "In the footer \"Follow me on\" row, make only the GeekGoat icon and the X icon clickable; set the X icon click target to navigate to https://x.com/WillGeek4Food. Do not make the entire row clickable.",
-      "files": [
-        "frontend/src/App.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-14"
+        "REQ-20"
       ],
       "confidence": "high"
     }

@@ -1,49 +1,44 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-13T22:55:56.193Z",
+  "generatedAt": "2026-02-13T23:51:32.992Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
     "total": 3,
-    "implemented": 3,
+    "implemented": 1,
     "items": [
       {
-        "id": "REQ-12",
-        "summary": "Update the header layout so the LookyLoo circular logo is positioned on the far left, and place the exact text \"Hey there, LookyLoo!  Wanna see somethin'?\" immediately to the right of the logo, while keeping the auth controls and (when authenticated) Upload button aligned on the right side of the header.",
+        "id": "REQ-19",
+        "summary": "Add the already-generated 64×64 PNG favicon asset (favicon-64.png) to the frontend static assets and ensure it is served by the app at a stable URL.",
+        "status": "missing",
+        "plannedFiles": [
+          "frontend/public/assets/generated/favicon-64.png"
+        ],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-20",
+        "summary": "Update the HTML entry point (frontend/index.html) to reference the generated 64×64 PNG favicon instead of /favicon.ico.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/Header.tsx"
+          "frontend/index.html"
         ],
         "matchedFiles": [
-          "frontend/src/components/Header.tsx"
+          "frontend/index.html"
         ]
       },
       {
-        "id": "REQ-13",
-        "summary": "On the unauthenticated landing page only, style the title text \"LookyLoo\" to be orange and use a calligraphy-style (or close) font; do not apply this orange/calligraphy styling to the header text.",
-        "status": "implemented",
+        "id": "REQ-21",
+        "summary": "Verify favicon rendering in both local dev and production build outputs so the browser tab shows the LookyLoo-derived favicon without relying on a .ico upload.",
+        "status": "missing",
         "plannedFiles": [
-          "frontend/src/components/Landing.tsx",
-          "frontend/src/index.css"
+          "frontend/docs/favicon-verification.md",
+          "frontend/package.json"
         ],
-        "matchedFiles": [
-          "frontend/src/components/Landing.tsx",
-          "frontend/src/index.css"
-        ]
-      },
-      {
-        "id": "REQ-14",
-        "summary": "In the footer \"Follow me on\" row, make only the GeekGoat icon and the X icon clickable; set the X icon click target to navigate to https://x.com/WillGeek4Food. Do not make the entire row clickable.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/App.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/App.tsx"
-        ]
+        "matchedFiles": []
       }
     ]
   },
@@ -52,11 +47,7 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/App.tsx",
-    "frontend/src/components/Header.tsx",
-    "frontend/src/components/Landing.tsx",
-    "frontend/src/index.css",
-    "frontend/tailwind.config.js",
+    "frontend/index.html",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

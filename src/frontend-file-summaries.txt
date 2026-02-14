@@ -1,7 +1,7 @@
 {
   "frontend/src/App.tsx": "Main application component managing authentication state, profile setup, navigation between views, and footer with clickable GeekGoat and X social icons.",
   "frontend/src/components/Header.tsx": "Header component with logo positioned at far left, greeting text \"Hey there, LookyLoo!  Wanna see somethin'?\" to its right, and auth/upload controls on the far right.",
-  "frontend/src/components/Landing.tsx": "Landing page with circular hero video, orange calligraphy-styled \"LookyLoo\" title, subtitle, and three marketing cards including GeekGoat image.",
+  "frontend/src/components/Landing.tsx": "Landing page with circular hero video, orange calligraphy-styled \"LookyLoo\" title, subtitle, and three centered oval-styled marketing cards with orange drop shadows arranged in two rows (GeekGoat card centered on first row, two feature cards on second row).",
   "frontend/src/components/ProfileSetupModal.tsx": "Modal dialog for first-time user profile setup requiring name input.",
   "frontend/src/components/feed/Feed.tsx": "Paginated feed view displaying 9 posts per page with navigation controls.",
   "frontend/src/components/feed/PostCard.tsx": "Individual post card component displaying media thumbnail with click-to-view interaction.",
@@ -14,6 +14,6 @@
   "frontend/index.css": "Global styles with warm neutral OKLCH color palette (avoiding blue/purple) for light and dark modes.",
   "frontend/tailwind.config.js": "Tailwind configuration with custom color tokens including lookyloo-orange, Inter and script font families, and extended design system.",
   "frontend/src/main.tsx": "Application entry point that sets up React Query, Internet Identity provider, and renders the main App component with correct CSS import path.",
-  "frontend/src/index.css": "Global styles with warm neutral OKLCH color palette, custom orange token for LookyLoo branding, and calligraphy font styling for landing title.",
-  "frontend/index.html": "HTML entry point with favicon reference and page title."
+  "frontend/src/index.css": "Global styles with warm neutral OKLCH color palette, custom orange token for LookyLoo branding, calligraphy font styling for landing title, and hero card orange shadow styling for both light and dark modes.",
+  "frontend/index.html": "HTML entry point with PNG favicon reference pointing to the generated 64×64 favicon asset and page title."
 }
