@@ -1,167 +1,29 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 13,
-  "summary": "Media-sharing app on ICP (Motoko canister + React/Tailwind/React Query) with authentication/roles, user profiles, posts with media, feed + viewer UI, and a new requirement to use seamless chunked uploads (512KB chunks) instead of single-call media uploads due to update-call size limits.",
+  "projectStateVersion": 3,
+  "summary": "New project",
   "architectural_notes": [
-    "Chunked uploads must fully replace single-call media upload (no single-call createPost with full media Blob).",
-    "Frontend slices files into 512KB chunks and uploads across multiple update calls.",
-    "Upload flow must appear as a single-file upload to the user; chunking/finalization is invisible in UI.",
-    "Favicon fallback: generate a 64×64 PNG favicon from the existing LookyLoo-logo.png and wire it into the HTML entry point when a .ico file is unavailable."
+    "Favicon handling: remove/avoid hardcoded <link rel=\"icon\" href=\"/favicon.ico\"> if no favicon.ico exists; configure site to use PNG favicon assets instead."
   ],
   "known_issues": [
-    "Favicon currently not loading in browser tab (missing icon); needs wiring in via generated 64×64 PNG favicon from existing logo."
+    "Browser is requesting /favicon.ico (missing) causing default globe favicon to appear; needs link/config updated to point to PNG favicons."
   ],
   "isFixRequest": true,
-  "generatedImages": [
-    {
-      "filename": "favicon-64.png",
-      "description": "64×64 PNG favicon generated from the existing LookyLoo-logo.png for use in the browser tab.",
-      "targetWidth": 64,
-      "targetHeight": 64
-    }
-  ],
+  "imageRequirements": "## Required Images\n- Centered logo favicon in ICO format with transparent background (favicon-v2.dim_32x32.ico)\n\n## Edit Images\n- Create renamed cache-busting favicon variant (favicon-16.dim_16x16.png > favicon-v2-16.dim_16x16.png)\n- Create renamed cache-busting favicon variant (favicon-32.dim_32x32.png > favicon-v2-32.dim_32x32.png)\n- Create renamed cache-busting favicon variant (favicon-48.dim_48x48.png > favicon-v2-48.dim_48x48.png)\n- Create renamed cache-busting favicon variant (favicon-64.dim_64x64.png > favicon-v2-64.dim_64x64.png)",
   "existing_features": [
     {
-      "id": "feature-replace-the-single-call-media-upload-api-with-a-seamless-chunked-upload-protocol-that-splits-files-into-512-kb-chunks-on-the-frontend-uploads-them-across-multiple-update-calls-stores-chunks-temporarily-in-the-motoko-canister-and-finalizes-into-a-single-stored-post-that-behaves-like-a-normal-single-file-post-everywhere-else-in-the-app",
-      "title": "Replace the single-call media upload API with a seamless chunked upload protocol that splits files into 512 KB chunks on the frontend, uploads them across multiple update calls, stores chunks temporarily in the Motoko canister, and finalizes into a single stored post that behaves like a normal single-file post everywhere else in the app.",
+      "id": "feature-ensure-the-app-serves-a-valid-root-favicon-at-favicon-ico-by-adding-frontend-public-favicon-ico-so-browsers-requesting-favicon-ico-no-longer-fall-back-to-the-default-globe-icon",
+      "title": "Ensure the app serves a valid root favicon at `/favicon.ico` by adding `frontend/public/favicon.ico` so browsers requesting `/favicon.ico` no longer fall back to the default globe icon.",
       "reqIds": [
         "REQ-1"
       ],
       "version": 1
     },
     {
-      "id": "feature-update-the-frontend-upload-flow-uploadbutton-uploadcomposer-to-perform-chunked-uploads-end-to-end-with-progress-reporting-and-robust-error-handling-retry-a-failed-chunk-upload-allow-cancel-while-keeping-the-rest-of-the-app-api-usage-feed-viewer-unchanged",
-      "title": "Update the frontend upload flow (UploadButton → UploadComposer) to perform chunked uploads end-to-end with progress reporting and robust error handling (retry a failed chunk upload; allow cancel), while keeping the rest of the app API usage (feed, viewer) unchanged.",
+      "id": "feature-update-frontend-index-html-favicon-declarations-so-they-reference-only-valid-deployed-favicon-assets-and-ensure-favicon-ico-is-referenced-for-maximum-browser-compatibility-including-optional-rel-shortcut-icon",
+      "title": "Update `frontend/index.html` favicon declarations so they reference only valid, deployed favicon assets, and ensure `/favicon.ico` is referenced for maximum browser compatibility (including optional `rel=\"shortcut icon\"`).",
       "reqIds": [
-        "REQ-3"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-ensure-posts-apis-support-efficient-feed-pagination-by-returning-post-summaries-for-lists-and-fetching-full-media-only-for-a-specific-post-id-while-maintaining-share-and-delete-behaviors-for-finalized-posts",
-      "title": "Ensure posts APIs support efficient feed pagination by returning post summaries for lists and fetching full media only for a specific post ID, while maintaining share and delete behaviors for finalized posts.",
-      "reqIds": [
-        "REQ-4"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-a-coherent-distinct-visual-theme-across-the-spa-colors-typography-spacing-and-component-styling-and-apply-it-consistently-to-the-landing-header-feed-upload-composer-and-post-viewer-screens",
-      "title": "Add a coherent, distinct visual theme across the SPA (colors, typography, spacing, and component styling) and apply it consistently to the landing, header, feed, upload composer, and post viewer screens.",
-      "reqIds": [
-        "REQ-5"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-use-the-uploaded-lookyloo-logo-png-as-the-app-logo-in-the-header-top-centered-ensuring-it-renders-crisply-and-responsively-without-layout-shift",
-      "title": "Use the uploaded LookyLoo-Logo.png as the app logo in the header (top-centered), ensuring it renders crisply and responsively without layout shift.",
-      "reqIds": [
-        "REQ-6"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-unauthenticated-landing-page-frontend-src-components-landing-tsx-to-replace-the-current-camera-icon-copy-with-a-centered-hero-section-that-includes-1-a-large-circular-hero-media-element-that-plays-the-provided-lookyloo-gif-mp4-2-title-text-exactly-lookyloo-3-subtitle-text-exactly-a-li-l-media-share-on-icp-and-4-three-uniform-hero-cards-below-the-subtitle-with-the-specified-marketing-copy",
-      "title": "Update the unauthenticated landing page (frontend/src/components/Landing.tsx) to replace the current camera icon + copy with a centered hero section that includes: (1) a large circular hero media element that plays the provided LookyLoo-gif.mp4, (2) title text exactly \"LookyLoo\", (3) subtitle text exactly \"A Li'l Media Share on ICP\", and (4) three uniform hero cards below the subtitle with the specified marketing copy.",
-      "reqIds": [
-        "REQ-7"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-card-c-in-the-landing-hero-cards-so-that-the-provided-geekgoat-e8crlk9m-png-image-is-displayed-in-a-circle-centered-above-the-card-c-text",
-      "title": "Update Card C in the Landing hero cards so that the provided GeekGoat-e8cRlk9m.png image is displayed in a circle, centered above the Card C text.",
-      "reqIds": [
-        "REQ-8"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-header-frontend-src-components-header-tsx-to-remove-the-currently-referenced-assets-lookyloo-logo-png-and-replace-it-with-the-uploaded-lookyloo-logo-png-displayed-in-a-circular-frame-remaining-centered-in-the-header-without-layout-shift",
-      "title": "Update the header (frontend/src/components/Header.tsx) to remove the currently referenced /assets/LookyLoo-Logo.png and replace it with the uploaded lookyloo-logo.png displayed in a circular frame, remaining centered in the header without layout shift.",
-      "reqIds": [
-        "REQ-9"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-footer-frontend-src-app-tsx-to-remove-the-existing-copyright-link-sentence-and-replace-it-with-first-line-exactly-2026-lookyloo-a-geekdice-dapp-built-with-caffeine-ai-and-a-second-line-below-it-single-line-centered-that-shows-geekgoat-e8crlk9m-png-in-a-circle-then-the-text-follow-me-on-then-the-x-logo-transparent-png-icon",
-      "title": "Update the footer (frontend/src/App.tsx) to remove the existing copyright/link sentence and replace it with: first line exactly \"2026 LookyLoo. A GeekDice dApp built with caffeine.ai\" and a second line below it (single line, centered) that shows: <GeekGoat-e8cRlk9m.png in a circle> then the text \"Follow me on\" then the X Logo Transparent.png icon.",
-      "reqIds": [
-        "REQ-10"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-install-and-wire-up-the-provided-favicon-ico-so-it-appears-in-the-browser-tab-for-the-app-update-the-html-entry-point-to-reference-it",
-      "title": "Install and wire up the provided favicon.ico so it appears in the browser tab for the app (update the HTML entry point to reference it).",
-      "reqIds": [
-        "REQ-11"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-header-layout-so-the-lookyloo-circular-logo-is-positioned-on-the-far-left-and-place-the-exact-text-hey-there-lookyloo-wanna-see-somethin-immediately-to-the-right-of-the-logo-while-keeping-the-auth-controls-and-when-authenticated-upload-button-aligned-on-the-right-side-of-the-header",
-      "title": "Update the header layout so the LookyLoo circular logo is positioned on the far left, and place the exact text \"Hey there, LookyLoo!  Wanna see somethin'?\" immediately to the right of the logo, while keeping the auth controls and (when authenticated) Upload button aligned on the right side of the header.",
-      "reqIds": [
-        "REQ-12"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-on-the-unauthenticated-landing-page-only-style-the-title-text-lookyloo-to-be-orange-and-use-a-calligraphy-style-or-close-font-do-not-apply-this-orange-calligraphy-styling-to-the-header-text",
-      "title": "On the unauthenticated landing page only, style the title text \"LookyLoo\" to be orange and use a calligraphy-style (or close) font; do not apply this orange/calligraphy styling to the header text.",
-      "reqIds": [
-        "REQ-13"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-in-the-footer-follow-me-on-row-make-only-the-geekgoat-icon-and-the-x-icon-clickable-set-the-x-icon-click-target-to-navigate-to-https-x-com-willgeek4food-do-not-make-the-entire-row-clickable",
-      "title": "In the footer \"Follow me on\" row, make only the GeekGoat icon and the X icon clickable; set the X icon click target to navigate to https://x.com/WillGeek4Food. Do not make the entire row clickable.",
-      "reqIds": [
-        "REQ-14"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-unauthenticated-landing-page-hero-cards-layout-in-frontend-src-components-landing-tsx-so-that-card-c-the-card-containing-the-geekgoat-image-is-centered-on-the-first-row-and-cards-a-and-b-appear-side-by-side-on-a-second-row-below-it-ensure-the-overall-layout-reads-as-visually-symmetrical-and-remains-responsive-on-mobile-and-desktop",
-      "title": "Update the unauthenticated landing page hero cards layout in frontend/src/components/Landing.tsx so that Card C (the card containing the GeekGoat image) is centered on the first row, and Cards A and B appear side-by-side on a second row below it; ensure the overall layout reads as visually symmetrical and remains responsive on mobile and desktop.",
-      "reqIds": [
-        "REQ-15"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-restyle-the-three-landing-hero-cards-on-the-unauthenticated-landing-page-to-appear-as-ovals-pill-ellipse-like-silhouettes-add-a-more-pronounced-but-tasteful-drop-shadow-and-update-typography-within-the-cards-to-feel-more-lively-and-polished-while-keeping-the-existing-card-copy-unchanged-use-your-own-design-judgment-for-the-final-look",
-      "title": "Restyle the three landing hero cards on the unauthenticated landing page to appear as ovals (pill/ellipse-like silhouettes), add a more pronounced but tasteful drop shadow, and update typography within the cards to feel more lively and polished while keeping the existing card copy unchanged; use your own design judgment for the final look.",
-      "reqIds": [
-        "REQ-16"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-unauthenticated-landing-page-hero-cards-in-frontend-src-components-landing-tsx-so-that-the-marketing-copy-text-is-centered-within-each-oval-card-including-cards-a-and-b-which-are-currently-left-aligned",
-      "title": "Update the unauthenticated landing page hero cards in frontend/src/components/Landing.tsx so that the marketing copy text is centered within each oval card (including Cards A and B which are currently left-aligned).",
-      "reqIds": [
-        "REQ-17"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-unauthenticated-landing-page-hero-card-styling-in-frontend-src-components-landing-tsx-so-each-oval-card-has-an-orange-drop-shadow-behind-it-in-addition-to-any-existing-subtle-shadow-making-the-cards-visually-pop-while-remaining-readable-in-both-light-and-dark-mode",
-      "title": "Update the unauthenticated landing page hero card styling in frontend/src/components/Landing.tsx so each oval card has an orange drop shadow behind it (in addition to any existing subtle shadow), making the cards visually “pop” while remaining readable in both light and dark mode.",
-      "reqIds": [
-        "REQ-18"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-html-entry-point-frontend-index-html-to-reference-the-generated-64-64-png-favicon-instead-of-favicon-ico",
-      "title": "Update the HTML entry point (frontend/index.html) to reference the generated 64×64 PNG favicon instead of /favicon.ico.",
-      "reqIds": [
-        "REQ-20"
+        "REQ-2"
       ],
       "version": 1
     }
@@ -169,84 +31,20 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Implement seamless chunked media uploads (512KB slices) that replace single-call createPost media upload; backend stores chunks and assembles final media transparently to the user.",
+      "summary": "Fix favicon showing default globe by updating HTML to stop referencing /favicon.ico and use deployed PNG favicons; rebuild/deploy",
       "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-3",
-      "summary": "Implement backend chunk-upload state management and validation in the single Motoko main actor: enforce authorization/roles, validate chunk ordering/indices, track received chunks, enforce size limits per chunk, and ensure uploads can be resumed or safely rejected when inconsistent.",
-      "reqIds": [
-        "REQ-2"
-      ],
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "id": "AR-4",
-      "summary": "Update landing page hero: center a large circular LookyLoo-gif.mp4, change title text to 'LookyLoo' with subtitle 'A Li'l Media Share on ICP', and add three uniform hero cards with specified copy; Card C includes GeekGoat.png in a circle centered above the text.",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-5",
-      "summary": "Update header/footer branding assets: replace existing header logo with lookyloo-logo.png in a circle, install favicon.ico for the browser tab, and replace footer text with '2026 LookyLoo. A GeekDice dApp built with caffeine.ai' plus a centered single-line second row: '<GeekGoat.png in a circle> Follow me on <X Logo Transparent.png>'.",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-6",
-      "summary": "Header update: move the LookyLoo logo to the far left and place the text \"Hey there, LookyLoo!  Wanna see somethin'?\" to the right of it (replace the centered-header layout accordingly).",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-7",
-      "summary": "Landing page title styling: change the landing-page title text \"LookyLoo\" to orange and use a calligraphy-style (or close) font; do not apply this styling to the header text.",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-8",
-      "summary": "Footer links: make only the GeekGoat icon and the X logo icon clickable; set the X icon link target to https://x.com/WillGeek4Food (do not make the whole row clickable).",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-9",
-      "summary": "Cosmetic update to unauthenticated landing page hero cards: redesign cards as ovals with drop shadows and improved/livelier typography; fix symmetry by centering Card C (GeekGoat) on the first row with Cards A and B side-by-side on a second row below.",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-10",
-      "summary": "Landing hero cards styling tweak: center the text within the oval cards and add an orange drop shadow behind the cards so they pop more.",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-11",
-      "summary": "Generate and install a 64×64 PNG favicon derived from the existing LookyLoo-logo.png (header logo) as a fallback since favicon.ico upload is not available.",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-12",
-      "summary": "Add the already-generated 64×64 PNG favicon asset (favicon-64.png) to the frontend static assets and ensure it is served by the app at a stable URL.",
+      "summary": "Add/verify cache-busted PNG favicon assets exist under `frontend/public/assets/generated/` matching the filenames referenced by `frontend/index.html`: `favicon-v2-16.dim_16x16.png`, `favicon-v2-32.dim_32x32.png`, `favicon-v2-48.dim_48x48.png`, and `favicon-v2-64.dim_64x64.png`.",
       "reqIds": [
-        "REQ-19"
-      ],
-      "status": "pending"
-    },
-    {
-      "id": "AR-14",
-      "summary": "Verify favicon rendering in both local dev and production build outputs so the browser tab shows the LookyLoo-derived favicon without relying on a .ico upload.",
-      "reqIds": [
-        "REQ-21"
+        "REQ-3"
       ],
       "status": "pending"
     }
   ],
-  "projectName": "LookyLoo: Seamless 512KB Chunked Media Uploads (replace single-call uploads)",
+  "projectName": "Fix favicon default globe by serving /favicon.ico and cache-busted PNG favicons",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

@@ -1,27 +1,30 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-13T23:51:32.992Z",
+  "generatedAt": "2026-02-16T07:51:15.484Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
     "total": 3,
-    "implemented": 1,
+    "implemented": 2,
     "items": [
       {
-        "id": "REQ-19",
-        "summary": "Add the already-generated 64×64 PNG favicon asset (favicon-64.png) to the frontend static assets and ensure it is served by the app at a stable URL.",
-        "status": "missing",
+        "id": "REQ-1",
+        "summary": "Ensure the app serves a valid root favicon at `/favicon.ico` by adding `frontend/public/favicon.ico` so browsers requesting `/favicon.ico` no longer fall back to the default globe icon.",
+        "status": "implemented",
         "plannedFiles": [
-          "frontend/public/assets/generated/favicon-64.png"
+          "frontend/public/favicon.ico",
+          "frontend/public/assets/generated/favicon-v2.dim_32x32.ico"
         ],
-        "matchedFiles": []
+        "matchedFiles": [
+          "frontend/public/assets/generated/favicon-v2.dim_32x32.ico"
+        ]
       },
       {
-        "id": "REQ-20",
-        "summary": "Update the HTML entry point (frontend/index.html) to reference the generated 64×64 PNG favicon instead of /favicon.ico.",
+        "id": "REQ-2",
+        "summary": "Update `frontend/index.html` favicon declarations so they reference only valid, deployed favicon assets, and ensure `/favicon.ico` is referenced for maximum browser compatibility (including optional `rel=\"shortcut icon\"`).",
         "status": "implemented",
         "plannedFiles": [
           "frontend/index.html"
@@ -31,12 +34,14 @@
         ]
       },
       {
-        "id": "REQ-21",
-        "summary": "Verify favicon rendering in both local dev and production build outputs so the browser tab shows the LookyLoo-derived favicon without relying on a .ico upload.",
+        "id": "REQ-3",
+        "summary": "Add/verify cache-busted PNG favicon assets exist under `frontend/public/assets/generated/` matching the filenames referenced by `frontend/index.html`: `favicon-v2-16.dim_16x16.png`, `favicon-v2-32.dim_32x32.png`, `favicon-v2-48.dim_48x48.png`, and `favicon-v2-64.dim_64x64.png`.",
         "status": "missing",
         "plannedFiles": [
-          "frontend/docs/favicon-verification.md",
-          "frontend/package.json"
+          "frontend/public/assets/generated/favicon-v2-16.dim_16x16.png",
+          "frontend/public/assets/generated/favicon-v2-32.dim_32x32.png",
+          "frontend/public/assets/generated/favicon-v2-48.dim_48x48.png",
+          "frontend/public/assets/generated/favicon-v2-64.dim_64x64.png"
         ],
         "matchedFiles": []
       }
@@ -48,6 +53,7 @@
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
     "frontend/index.html",
+    "frontend/public/assets/generated/favicon-v2.dim_32x32.ico",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

@@ -1,74 +1,94 @@
 {
   "kind": "build_request",
-  "title": "Generate and install a 64×64 PNG favicon derived from the LookyLoo logo",
-  "priority": "normal",
+  "title": "Fix favicon default globe by serving /favicon.ico and cache-busted PNG favicons",
+  "priority": "high",
   "requirements": [
     {
-      "id": "REQ-19",
-      "text": "Add the already-generated 64×64 PNG favicon asset (favicon-64.png) to the frontend static assets and ensure it is served by the app at a stable URL.",
+      "id": "REQ-1",
+      "text": "Ensure the app serves a valid root favicon at `/favicon.ico` by adding `frontend/public/favicon.ico` so browsers requesting `/favicon.ico` no longer fall back to the default globe icon.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-recent-19"
+          "msg-user-build-1",
+          "msg-user-fix-1"
         ],
         "quotes": [
-          "take the existing LookyLoo-logo.png thats on the Header and create your own favicon to put in the browser tab.",
-          "64x64",
-          "go for it"
+          "do whatever will work.",
+          "build"
         ]
       },
       "acceptanceCriteria": [
-        "The repository contains the file favicon-64.png under frontend/public (preferred: frontend/public/assets/generated/favicon-64.png).",
-        "When the app is running, requesting the favicon URL returns a 200 and the content-type is image/png."
+        "A file exists at `frontend/public/favicon.ico` in the built app output.",
+        "Visiting `/favicon.ico` in the deployed app returns the icon file (HTTP 200) and not a 404.",
+        "After a hard refresh, the browser tab no longer shows the default globe favicon due to missing `/favicon.ico`."
       ]
     },
     {
-      "id": "REQ-20",
-      "text": "Update the HTML entry point (frontend/index.html) to reference the generated 64×64 PNG favicon instead of /favicon.ico.",
+      "id": "REQ-2",
+      "text": "Update `frontend/index.html` favicon declarations so they reference only valid, deployed favicon assets, and ensure `/favicon.ico` is referenced for maximum browser compatibility (including optional `rel=\"shortcut icon\"`).",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-recent-19"
+          "msg-user-build-1",
+          "msg-user-fix-1"
         ],
         "quotes": [
-          "create your own favicon to put in the browser tab."
+          "Yes, fix the goddamn thing.",
+          "build"
         ]
       },
       "acceptanceCriteria": [
-        "frontend/index.html includes a <link rel=\"icon\"> tag pointing to the PNG favicon URL (e.g., /assets/generated/favicon-64.png) and uses type=\"image/png\".",
-        "The previous /favicon.ico reference is removed or superseded such that modern browsers display the PNG favicon in the tab."
+        "`frontend/index.html` includes a favicon link to `/favicon.ico` that matches a file actually served by the app.",
+        "If `rel=\"shortcut icon\"` is added, it points to `/favicon.ico`.",
+        "All favicon `<link>` hrefs in `frontend/index.html` resolve to existing files in the deployed build."
       ]
     },
     {
-      "id": "REQ-21",
-      "text": "Verify favicon rendering in both local dev and production build outputs so the browser tab shows the LookyLoo-derived favicon without relying on a .ico upload.",
+      "id": "REQ-3",
+      "text": "Add/verify cache-busted PNG favicon assets exist under `frontend/public/assets/generated/` matching the filenames referenced by `frontend/index.html`: `favicon-v2-16.dim_16x16.png`, `favicon-v2-32.dim_32x32.png`, `favicon-v2-48.dim_48x48.png`, and `favicon-v2-64.dim_64x64.png`.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-recent-19"
+          "msg-user-build-1"
         ],
         "quotes": [
-          "your shit is broken... do this instead."
+          "build"
         ]
       },
       "acceptanceCriteria": [
-        "In local dev (vite) the browser tab displays the generated favicon.",
-        "After building and serving the production assets, the browser tab displays the generated favicon."
+        "The following files exist in `frontend/public/assets/generated/`: `favicon-v2-16.dim_16x16.png`, `favicon-v2-32.dim_32x32.png`, `favicon-v2-48.dim_48x48.png`, `favicon-v2-64.dim_64x64.png`.",
+        "Requesting each of these URLs in the deployed app returns HTTP 200: `/assets/generated/favicon-v2-16.dim_16x16.png`, `/assets/generated/favicon-v2-32.dim_32x32.png`, `/assets/generated/favicon-v2-48.dim_48x48.png`, `/assets/generated/favicon-v2-64.dim_64x64.png`."
       ]
     }
   ],
   "constraints": [
-    "Do not depend on uploading favicon.ico; use only the generated PNG favicon.",
-    "Do not edit files under frontend/src/components/ui or other immutablePaths.",
-    "Keep the backend unchanged (no canister changes needed for favicon)."
+    "Do not edit files under `frontend/src/components/ui` (read-only).",
+    "Do not edit immutable hook/bootstrapping files: `frontend/src/hooks/useInternetIdentity.ts`, `frontend/src/hooks/useInternetIdentity.tsx`, `frontend/src/hooks/useActor.ts`, `frontend/src/main.tsx`.",
+    "Backend remains single-actor; no backend changes are required for favicon fixes."
   ],
   "nonGoals": [
-    "Creating a multi-resolution .ico file.",
-    "Adding dynamic/runtime favicon switching.",
-    "Changing the existing header logo or other branding assets beyond favicon wiring."
+    "Implementing any new app features unrelated to favicon behavior.",
+    "Changing authentication, upload, feed, or profile functionality."
   ],
   "imageRequirements": {
-    "required": [],
-    "edits": []
+    "required": [
+      "Centered logo favicon in ICO format with transparent background (favicon-v2.dim_32x32.ico)"
+    ],
+    "edits": [
+      "Create renamed cache-busting favicon variant (favicon-16.dim_16x16.png > favicon-v2-16.dim_16x16.png)",
+      "Create renamed cache-busting favicon variant (favicon-32.dim_32x32.png > favicon-v2-32.dim_32x32.png)",
+      "Create renamed cache-busting favicon variant (favicon-48.dim_48x48.png > favicon-v2-48.dim_48x48.png)",
+      "Create renamed cache-busting favicon variant (favicon-64.dim_64x64.png > favicon-v2-64.dim_64x64.png)"
+    ]
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
   }
 }

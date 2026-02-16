@@ -89,7 +89,7 @@ export default function App() {
                     <p className="mb-3">2026 LookyLoo. A GeekDice dApp built with caffeine.ai</p>
                     <div className="flex items-center justify-center gap-2">
                         <a
-                            href="https://geekdice.com"
+                            href="https://geekdice_infinitely.arweave.net/"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="transition-opacity hover:opacity-80"

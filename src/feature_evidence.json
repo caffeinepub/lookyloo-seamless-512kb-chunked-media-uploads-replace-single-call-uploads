@@ -2,8 +2,25 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-update-the-html-entry-point-frontend-index-html-to-reference-the-generated-64-64-png-favicon-instead-of-favicon-ico",
-      "featureTitle": "Update the HTML entry point (frontend/index.html) to reference the generated 64×64 PNG favicon instead of /favicon.ico.",
+      "featureId": "feature-ensure-the-app-serves-a-valid-root-favicon-at-favicon-ico-by-adding-frontend-public-favicon-ico-so-browsers-requesting-favicon-ico-no-longer-fall-back-to-the-default-globe-icon",
+      "featureTitle": "Ensure the app serves a valid root favicon at `/favicon.ico` by adding `frontend/public/favicon.ico` so browsers requesting `/favicon.ico` no longer fall back to the default globe icon.",
+      "files": [],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-frontend-index-html-favicon-declarations-so-they-reference-only-valid-deployed-favicon-assets-and-ensure-favicon-ico-is-referenced-for-maximum-browser-compatibility-including-optional-rel-shortcut-icon",
+      "featureTitle": "Update `frontend/index.html` favicon declarations so they reference only valid, deployed favicon assets, and ensure `/favicon.ico` is referenced for maximum browser compatibility (including optional `rel=\"shortcut icon\"`).",
       "files": [
         "frontend/index.html"
       ],
@@ -16,7 +33,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-20"
+        "REQ-2"
       ],
       "confidence": "high"
     }

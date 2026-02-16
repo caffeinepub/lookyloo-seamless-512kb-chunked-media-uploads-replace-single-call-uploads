@@ -1,11 +1,11 @@
 # Specification
 
 ## Summary
-**Goal:** Replace the broken/missing `.ico` favicon setup with a stable 64×64 PNG favicon derived from the LookyLoo logo.
+**Goal:** Fix missing favicon behavior so browsers consistently load the app’s favicon instead of the default globe.
 
 **Planned changes:**
-- Add the generated `favicon-64.png` to frontend static assets (preferably under `frontend/public/assets/generated/`) so it is served at a stable URL.
-- Update `frontend/index.html` to reference the PNG favicon via a `<link rel="icon" type="image/png">` tag instead of `/favicon.ico`.
-- Verify favicon rendering works in both local dev and production build outputs without relying on a `.ico` upload.
+- Add a valid `frontend/public/favicon.ico` so requests to `/favicon.ico` return HTTP 200.
+- Update `frontend/index.html` favicon `<link>` declarations to reference only favicon assets that are actually deployed, including `/favicon.ico` (optionally as `rel="shortcut icon"`).
+- Ensure cache-busted PNG favicon assets exist under `frontend/public/assets/generated/` with the filenames referenced by `frontend/index.html` (`favicon-v2-16/32/48/64...png`).
 
-**User-visible outcome:** The browser tab displays the LookyLoo-derived PNG favicon consistently in dev and production.
+**User-visible outcome:** After a hard refresh, the browser tab shows the correct app favicon (no default globe), and direct visits to `/favicon.ico` and the PNG favicon URLs return the expected icons.

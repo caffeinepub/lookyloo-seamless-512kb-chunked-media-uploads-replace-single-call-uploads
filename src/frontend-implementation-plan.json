@@ -1,55 +1,72 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Install generated 64×64 PNG favicon and wire it in index.html",
+  "title": "Serve root /favicon.ico and cache-busted PNG favicons",
   "requirements": [
     {
-      "id": "REQ-19",
-      "summary": "Add the generated 64×64 PNG favicon to frontend public assets and serve it at a stable URL.",
+      "id": "REQ-1",
+      "summary": "Serve a valid root favicon at /favicon.ico by adding frontend/public/favicon.ico.",
       "acceptanceCriteria": [
-        "The repository contains the file favicon-64.png under frontend/public (preferred: frontend/public/assets/generated/favicon-64.png).",
-        "When the app is running, requesting the favicon URL returns a 200 and the content-type is image/png."
+        "A file exists at `frontend/public/favicon.ico` in the built app output.",
+        "Visiting `/favicon.ico` in the deployed app returns the icon file (HTTP 200) and not a 404.",
+        "After a hard refresh, the browser tab no longer shows the default globe favicon due to missing `/favicon.ico`."
       ],
       "file_operations": [
         {
-          "path": "frontend/public/assets/generated/favicon-64.png",
+          "path": "frontend/public/favicon.ico",
           "operation": "create",
-          "description": "Add the already-generated 64×64 PNG favicon asset so it is served statically at a stable URL (/assets/generated/favicon-64.png)."
+          "description": "Add a valid ICO favicon at the root public path so browsers requesting `/favicon.ico` receive HTTP 200 and do not fall back to the default globe."
+        },
+        {
+          "path": "frontend/public/assets/generated/favicon-v2.dim_32x32.ico",
+          "operation": "create",
+          "description": "Add the required generated ICO asset `frontend/public/assets/generated/favicon-v2.dim_32x32.ico` (transparent background, centered logo) so it is present in the deployed build output."
         }
       ]
     },
     {
-      "id": "REQ-20",
-      "summary": "Update the HTML entry point to reference the PNG favicon instead of /favicon.ico.",
+      "id": "REQ-2",
+      "summary": "Update index.html favicon link declarations to reference only deployed favicon assets including /favicon.ico.",
       "acceptanceCriteria": [
-        "frontend/index.html includes a <link rel=\"icon\"> tag pointing to the PNG favicon URL (e.g., /assets/generated/favicon-64.png) and uses type=\"image/png\".",
-        "The previous /favicon.ico reference is removed or superseded such that modern browsers display the PNG favicon in the tab."
+        "`frontend/index.html` includes a favicon link to `/favicon.ico` that matches a file actually served by the app.",
+        "If `rel=\"shortcut icon\"` is added, it points to `/favicon.ico`.",
+        "All favicon `<link>` hrefs in `frontend/index.html` resolve to existing files in the deployed build."
       ],
       "file_operations": [
         {
           "path": "frontend/index.html",
           "operation": "modify",
-          "description": "Replace the existing /favicon.ico <link rel=\"icon\"> tag with a PNG favicon link referencing /assets/generated/favicon-64.png and type=\"image/png\" (optionally include sizes=\"64x64\"). Ensure the .ico reference is removed or clearly superseded."
+          "description": "Ensure favicon `<link>` tags reference only deployed assets; keep `/favicon.ico` and add `rel=\"shortcut icon\"` pointing to `/favicon.ico` for maximum browser compatibility while retaining the cache-busted PNG favicon references."
         }
       ]
     },
     {
-      "id": "REQ-21",
-      "summary": "Add a repeatable verification procedure for favicon rendering in dev and production builds.",
+      "id": "REQ-3",
+      "summary": "Ensure cache-busted PNG favicon assets exist under frontend/public/assets/generated matching filenames referenced by index.html.",
       "acceptanceCriteria": [
-        "In local dev (vite) the browser tab displays the generated favicon.",
-        "After building and serving the production assets, the browser tab displays the generated favicon."
+        "The following files exist in `frontend/public/assets/generated/`: `favicon-v2-16.dim_16x16.png`, `favicon-v2-32.dim_32x32.png`, `favicon-v2-48.dim_48x48.png`, `favicon-v2-64.dim_64x64.png`.",
+        "Requesting each of these URLs in the deployed app returns HTTP 200: `/assets/generated/favicon-v2-16.dim_16x16.png`, `/assets/generated/favicon-v2-32.dim_32x32.png`, `/assets/generated/favicon-v2-48.dim_48x48.png`, `/assets/generated/favicon-v2-64.dim_64x64.png`."
       ],
       "file_operations": [
         {
-          "path": "frontend/docs/favicon-verification.md",
+          "path": "frontend/public/assets/generated/favicon-v2-16.dim_16x16.png",
           "operation": "create",
-          "description": "Document a simple, repeatable manual verification checklist for favicon rendering in both local dev (vite) and production build serving, including the exact URL to request (/assets/generated/favicon-64.png) and expected content-type (image/png)."
+          "description": "Add the cache-busted 16x16 PNG favicon asset so the href used by `frontend/index.html` resolves to a deployed file."
         },
         {
-          "path": "frontend/package.json",
-          "operation": "modify",
-          "description": "Add or update a convenient script for previewing/serving the production build (if not already present) so the production favicon check can be performed consistently."
+          "path": "frontend/public/assets/generated/favicon-v2-32.dim_32x32.png",
+          "operation": "create",
+          "description": "Add the cache-busted 32x32 PNG favicon asset so the href used by `frontend/index.html` resolves to a deployed file."
+        },
+        {
+          "path": "frontend/public/assets/generated/favicon-v2-48.dim_48x48.png",
+          "operation": "create",
+          "description": "Add the cache-busted 48x48 PNG favicon asset so the href used by `frontend/index.html` resolves to a deployed file."
+        },
+        {
+          "path": "frontend/public/assets/generated/favicon-v2-64.dim_64x64.png",
+          "operation": "create",
+          "description": "Add the cache-busted 64x64 PNG favicon asset so the href used by `frontend/index.html` resolves to a deployed file."
         }
       ]
     }
